@@ -1,0 +1,7 @@
+反例
+
+规则：大 api 依赖小 api 写成显式参数
+
+违反这条规则的情形：bench 的 Execute 只写 $spec 与提示块，实际隐含调用 PrepareBypass、Collect、Measure。
+
+检查时命中：检查函数签名里是否有对应依赖参数。
