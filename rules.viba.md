@@ -11,7 +11,6 @@ import rules.types as rules
 import rules.apis as rules_api
 
 Violation = rules.Violation
-Finding = rules.Finding
 CheckViolations = rules_api.CheckViolations
 ```
 
