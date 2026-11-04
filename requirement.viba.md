@@ -28,10 +28,18 @@ Requirement =
   * $why (str * { 不做会怎样，谁在等这个结果 })
   * $surface (list[str] * { 这个问题需要对外可见的名字；多一个或少一个都要说清 })
 
+FrozenRootBackground = str * { 冻结文本，逐字保留：设计要能被机器检查，才谈得上被机器建设。总输入是一个仓库路径 `repo_path`，里面是一组 `.viba.md` 文档；操作分两类。
+
+第一类是合规性检查：像编译一样，逐条规则检查仓库，清楚指出违反了哪一条、在哪个文件、违反了什么。
+
+第二类是消融实验：删掉 public 够不到的死概念之后，README 需求要求的操作还能不能被解决；还能解决说明模型自洽，不能解决说明断的是哪条边。
+
+示例：本仓库就是被检查的仓库——根 public 导出 `Check` 与 `Ablate` 两个操作，输入都是 `repo_path`；九条经验各提供一条原则，检查结果按原则归类。 }
+
 Background =
   Object
   * $doc (str * { 哪份文档的需求背景 })
-  * $frozen (str * { 冻结时的文本；铁律要求它与当前文本一致 })
+  * $frozen (FrozenRootBackground * { 冻结时的文本；铁律要求它与当前文本一致 })
   * $current (str * { 当前文件里的文本 })
 
 MissingRequirement =
