@@ -25,7 +25,7 @@ import hint.public as hint
 import design_phase.public as design_phase
 import workflow.public as workflow
 
-Lesson = readme.Lesson
+Rule = readme.Rule
 CheckReport = readme.CheckReport
 AblationReport = readme.AblationReport
 Violation = readme.Violation
@@ -57,7 +57,7 @@ Run = workflow.Run
 两类操作共用一套词汇：一条违规记明是哪条原则、在哪个文件、违反了什么；一次检查是违规的清单；一次消融记下删掉了哪些定义、需求还解不解决得了、缺的是哪一个。
 
 ```bash types
-Lesson =
+Rule =
   Oneof
   | "requirement" * { 先写需求：没有需求，public 只是一张清单 }
   | "surface" * { 外部只认 public：types 与 apis 是内部实现 }
@@ -71,7 +71,7 @@ Lesson =
 
 Violation =
   Object
-  * $principle (Lesson * { 违反了哪条原则 })
+  * $principle (Rule * { 违反了哪条规则 })
   * $where (str * { 在哪个文件、哪一行或哪个名字上 })
   * $what (str * { 违反了什么；要能让没读过这段对话的人看懂 })
 
