@@ -4,7 +4,7 @@
 
 三处说的是同一件事：文件名叫什么，需求背景就该讲什么，public 就该导出什么。不一致说明概念还没理清，而且会一路传染到 import 与讨论里。
 
-示例：`checkpoint.viba.md` 与目录同名、和 `README.viba.md` 争入口，改成 `ckpt_bypass_plan.viba.md`，内容是旁路方案；`scaling.viba.md` 的内容只剩档位，改成 `level.viba.md`；`measures` 的 public 还挂着已删文档的 `Methodology` 前缀，改成 `Metric`、`Tolerance`。三处对齐之后，读文件名就能猜到 import 长什么样。变体的形态也要一致：和类型的标签要么全是对问题的描述，要么全是术语名词，要么全是动作动词，不能混。示例：`Violation` 的十个变体全是问题描述（`missing_requirement`、`public_leak`、`malformed_hint` 等）；如果其中一个叫 `cycle` 或 `inline_hint`，它只是名词，读起来就不像同一类变体。载荷类型也一样：`Violation` 的载荷是 `MissingRequirement`、`PublicLeak`、`MalformedHint` 这类问题名，不能一个叫 `Gap`、另一个叫 `Mismatch`。名字的正负也要一致：类型名是正面的，变体标签也得是正面的；否则类型与标签一起用负面名。示例：`Violation` 的十个变体全是负面名（`missing_requirement`、`public_leak` 等），若类型叫 `Rule` 却挂着这些负面标签，读起来就前后矛盾。每次删掉一个死概念之后，都要回头再查这三样，删东西最容易让名字与内容脱节。根 README 从这里取 `NameTriple`、`NameMismatch`、`Polarity` 与 `CheckName`，所以这篇有 public。
+示例：`checkpoint.viba.md` 与目录同名、和 `README.viba.md` 争入口，改成 `ckpt_bypass_plan.viba.md`，内容是旁路方案；`scaling.viba.md` 的内容只剩档位，改成 `level.viba.md`；`measures` 的 public 还挂着已删文档的 `Methodology` 前缀，改成 `Metric`、`Tolerance`。三处对齐之后，读文件名就能猜到 import 长什么样。变体的形态也要一致：和类型的标签要么全是对问题的描述，要么全是术语名词，要么全是动作动词，不能混。示例：`Violation` 的十个变体全是问题描述（`missing_requirement`、`public_leak`、`malformed_hint` 等）；如果其中一个叫 `cycle` 或 `inline_hint`，它只是名词，读起来就不像同一类变体。载荷类型也一样：`Violation` 各变体的载荷类型是 `MissingRequirement`、`PublicLeak`、`MalformedHint` 这类问题名，不能一个叫 `Gap`、另一个叫 `Mismatch`。名字的正负也要一致：类型名是正面的，变体标签也得是正面的；否则类型与标签一起用负面名。示例：`Violation` 的十个变体全是负面名（`missing_requirement`、`public_leak` 等），若类型名与标签的正负相反，读起来就前后矛盾。每次删掉一个死概念之后，都要回头再查这三样，删东西最容易让名字与内容脱节。根 README 的 `Check` 依赖本篇的检查，`Violation` 用本篇的发现类型作载荷，所以这篇有 public。
 
 ## public.viba
 
@@ -37,7 +37,7 @@ NameMismatch =
 
 Polarity =
   Oneof
-  | "positive" * { 正面名：说这个东西是什么，例如 Violation 之外的 Rule、Surface }
+  | "positive" * { 正面名：说这个东西是什么，例如 Surface 这类正面名 }
   | "negative" * { 负面名：说哪里出了问题，例如 Violation 与 missing_requirement }
 
 TagForm =
@@ -53,7 +53,7 @@ TagFormMix =
 
 PolarityClash =
   Object
-  * $type_name (str * { 类型名，例如 Rule })
+  * $type_name (str * { 类型名，例如 Violation })
   * $type_polarity (Polarity * { 类型名的正负 })
   * $tags (list[str] * { 变体标签，例如 missing_requirement、public_leak })
   * $payload_types (list[str] * { 各变体带的载荷类型名，例如 MissingRequirement、PublicLeak })

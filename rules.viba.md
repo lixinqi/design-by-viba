@@ -2,7 +2,7 @@
 
 ## 需求背景
 
-规则必须落到文件里，Check 与评审才能共用同一份清单，而不是每次靠记忆复述。这份规则集收 41 条：26 条来自用户原话，8 条由事件归纳，7 条为元规则；查漏新增的 48 条暂不采纳，等出现新的证据再逐条讨论。示例：`A14` 要求变体带载荷、`A19` 要求标签形态统一，这两条都不是口号，`Check` 能按它们报出违规。根 README 从这里取 `RuleId` 与 `List`，所以这篇有 public。
+规则必须落到文件里，Check 与评审才能共用同一份清单，而不是每次靠记忆复述。这份规则集收 42 条：27 条来自用户原话，8 条由事件归纳，7 条为元规则；查漏新增的 48 条暂不采纳，等出现新的证据再逐条讨论。示例：`A14` 要求变体带载荷、`A19` 要求标签形态统一，这两条都不是口号，`Check` 能按它们报出违规。根 README 的 `Check` 依赖本篇的检查，`Violation` 用本篇的发现类型作载荷，所以这篇有 public。
 
 ## public.viba
 
@@ -44,12 +44,12 @@ RuleId =
   | "name_triple_consistent" * { 文件名/需求背景/public 三处一致；依据：原话：信息量一定要一致；检查：文件名关键词∈背景；public=背景声明 }
   | "public_covers_chain" * { public 必须覆盖需求全链路；依据：原话：怎么构建一条样本；检查：需求操作逐个查可达 }
   | "virtual_edge_before_delete" * { 删前先查说明里提到但代码没引用；依据：原话：想想概念之间的引用关系；检查：mention vs reference 清单 }
-  | "fix_whole_class" * { 点名一处要按同一判据改完整类；依据：原话：不能我说一句你只做一句；检查：列同类命中并逐项勾销 }
+  | "fix_whole_class" * { 点名一处要按同一判据改完整类；依据：原话：不能我说一句你只做一句；检查：列同类命中并逐项确认完成 }
   | "rename_is_semantic" * { 改名不是字符串替换，形态一起升级；依据：原话：就改了个名字；检查：改名后问形态/载荷/引用 }
   | "background_names_public" * { 每篇背景收尾写根 README 从这里取什么；依据：九篇都补过这句；检查：背景清单=public 导出行 }
   | "inner_sum_for_failures" * { 同一语义位置的失败收进内层和类型；依据：点赞 Mismatch；检查：外层变体数不变、内层增加 }
   | "principle_into_kb" * { 用户讲清的原则必须落进知识库并附示例；依据：原话：显然要写到 design-by-viba；检查：知识库有篇讲它并带本次例子 }
-  | "six_checks_per_round" * { 每轮固定跑解析/加载/闭包/环/旧名/三者；依据：goal 要求反复审查；检查：贴六项数字 }
+  | "six_checks_per_round" * { 每轮固定执行解析、加载、闭包、环、旧名与三者一致检查；依据：goal 要求反复审查；检查：贴六项数字 }
   | "verified_before_done" * { 没跑完验证不宣布完成、不推送；依据：原话：json_schema 重新生成了吗；检查：完成附命令与输出 }
   | "graph_before_delete" * { 概念图先于删除，闭包只发现够不到；依据：SampleConfigBase 被误删；检查：删前查虚边再删 }
   | "hint_adds_information" * { 说明要有新信息：删掉信息量不减即废话；依据：原话：有点像废话；检查：删掉说明问信息量 }
@@ -60,13 +60,13 @@ RuleId =
   | "design_phase_spec_only" * { 设计阶段只留规范，删除即检验；依据：删代码/生成物/样例；检查：可达性判据 }
   | "pure_enum_allowed" * { 纯字符串枚举只在确实无数据时允许；依据：Polarity/TagForm 未被骂；检查：检查变体是否本应有数据 }
   | "define_new_words" * { 自造词第一次出现必须当场解释；依据：AGENTS.md 禁词规定；检查：生僻词同段有定义 }
+  | "public_only_own_names" * { public 只导出本文档内部的 types 与 apis，不转发别的文档的名字；依据：这也是规则；检查：public 块里每个导出行的来源模块都属于本文档 }
   | "text_reviewed_by_subagent" * { 交付自然语言前起独立 subagent 审查：不得过分口语，尽量用标准术语，读起来不能拗口；依据：这条规则也是铁律；检查：交付前有审查记录，且审查项覆盖口语、术语、拗口 }
   | "scolding_is_requirement" * { 训斥即需求：摘原话反推痛恨再成规则；依据：这句话本身也是经验；检查：复盘含原话与规则 }
-  | "natural_language_reviewed" * { 自然语言描述要过独立审查：不得过分口语，尽量用标准术语，一定不能拗口；依据：这条是铁律；检查：另起一个审查者通读全部说明文字，逐条改掉拗口处 }
 
 RuleBook =
   Object
-  * $accepted (list[RuleId] * { 已采纳的规则；共 41 条 })
+  * $accepted (list[RuleId] * { 已采纳的规则；共 42 条 })
   * $rejected (int * { 未采纳的条数；查漏新增的 48 条暂不进入规则集 })
 ```
 
@@ -81,7 +81,7 @@ import rules.types as rules
 
 List =
      rules.RuleBook
-  <- $accepted (list[rules.RuleId] * { 已采纳的规则，按 A01 到 A41 的顺序 })
+  <- $accepted (list[rules.RuleId] * { 已采纳的规则，按已采纳的顺序 })
   <- {
     列规则：把已采纳的 41 条按顺序交回，并交回未采纳的条数；规则集只收有证据的条目，新条目要等出现新证据
   }

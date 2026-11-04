@@ -4,7 +4,7 @@
 
 设计阶段产出的是规范，不是实现。代码、生成的 schema、样例数据、配方配置，只要从根 public 出发没有一条边能到它，就是负担：读的人要判断它是否还有效，写的人要维护两套真相。判据始终是同一条——有没有从 public 出发的边。
 
-示例：一天里删掉 12 个 python、79 份生成的 schema、7 份手写 schema、配方 yaml、指标登记表与样例数据，共 102 个文件；文档里指向它们的说明同步改成按内容描述。真正需要保留的只有被 public 依赖的文档：11 份，1142 行。根 README 从这里取 `Artifact`、`Verdict` 与 `Judge`，所以这篇有 public。
+示例：一天里删掉 12 个 python、79 份生成的 schema、7 份手写 schema、配方 yaml、指标登记表与样例数据，共 102 个文件；文档里指向它们的说明同步改成按内容描述。真正需要保留的只有被 public 依赖的文档：11 份，1142 行。根 README 的 `Check` 依赖本篇的检查，`Violation` 用本篇的发现类型作载荷，所以这篇有 public。
 
 ## public.viba
 
@@ -26,7 +26,7 @@ Artifact =
   Oneof
   | $spec (str * { 文档路径：类型与操作的出处，可能被 public 依赖 })
   | $generated (str * { 生成物路径：例如 JSON Schema；规范删了它就是陈旧数据 })
-  | $tooling (str * { 脚本与依赖清单的路径；设计阶段没有实现可跑，只在验证时临时出现 })
+  | $tooling (str * { 脚本与依赖清单的路径；设计阶段没有可执行的实现，只在验证时临时出现 })
   | $sample_data (str * { 样例数据与配方配置的路径；没有文档引用就是死数据 })
 
 Verdict =
@@ -50,6 +50,6 @@ Judge =
   <- $artifact (design_phase.Artifact * { 要判断的文件 })
   <- $reachable (bool * { 从根 public 出发能不能走到它 })
   <- {
-    判一份文件：spec 且可达才保留；generated、tooling、sample_data 一律删，可达的规范被删时先补边再删
+    判一份文件：spec 且可达才保留；generated、tooling、sample_data 一律删，要删可达的规范时，先把引用关系补上再删
   }
 ```

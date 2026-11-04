@@ -4,7 +4,7 @@
 
 说明里写出一个类型名，不等于依赖它：提示不是代码，闭包看不见它。概念之间的关系要用字段类型或参数类型表达，一段说明只是注脚；注脚里提到的名字，闭包会当成孤立物。
 
-示例：`RunSpec.$config` 曾经写成 `str * { ...那份配置必须含 SampleConfigBase 的字段 }`。闭包检验时，`SampleConfigBase` 没有被任何字段或参数引用，连它的 `Topology`、`ObservationConfig` 一起被删掉。把字段改成 `$config (SampleConfigBase * { ... })` 之后，这条边才真正存在，三个类型都回来了。根 README 从这里取 `Reference` 与 `CheckEdges`，所以这篇有 public。
+示例：`RunSpec.$config` 曾经写成 `str * { ...那份配置必须含 SampleConfigBase 的字段 }`。闭包检验时，`SampleConfigBase` 没有被任何字段或参数引用，连它的 `Topology`、`ObservationConfig` 一起被删掉。把字段改成 `$config (SampleConfigBase * { ... })` 之后，这条边才真正存在，三个类型都回来了。根 README 的 `Check` 依赖本篇的检查，`Violation` 用本篇的发现类型作载荷，所以这篇有 public。
 
 ## public.viba
 

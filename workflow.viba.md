@@ -2,9 +2,9 @@
 
 ## 需求背景
 
-删改之后不能只看一眼就提交：要重新加载文档、跑一次闭包、检查环、搜旧名字。每一步都要有能被重复执行的判据，否则下一次改动又会把今天理清的关系搅乱。
+删改之后不能只读一遍就提交：要重新加载文档、跑一次闭包、检查环、搜旧名字。每一步都要有能被重复执行的判据，否则下一次改动又会把已经理清的关系打乱。
 
-示例：每次改名后全仓搜旧名（`ckpt_sample`、`checkpoint.`、`Methodology`）确认为 0；每次删改后把生成器临时放回来跑一遍，79 份 schema 生成无误再删掉；提交信息里写清这一步用哪条规则判的，例如「Rename the sample and bypass-plan docs」。根 README 从这里取 `CheckResult` 与 `Run`，所以这篇有 public。
+示例：每次改名后全仓搜旧名（`ckpt_sample`、`checkpoint.`、`Methodology`）确认为 0；每次删改后临时恢复生成器再执行一遍，79 份 schema 生成无误再删掉；提交信息里写清这一步用哪条规则判的，例如「Rename the sample and bypass-plan docs」。根 README 的 `Check` 依赖本篇的检查，`Violation` 用本篇的发现类型作载荷，所以这篇有 public。
 
 ## public.viba
 
@@ -43,7 +43,7 @@ CheckResult =
 
 ## 基本操作
 
-只有一个操作：跑一遍。按 README 里的 `Rule` 顺序逐条规则检查，任何一步不通过就停在那一步，并把证据写清。
+只有一个操作：执行一遍。按 `Violation` 的顺序逐条检查，任何一步不通过就停在那一步，并把证据写清。
 
 ## apis.viba
 
@@ -55,7 +55,7 @@ Run =
      list[workflow.Step]
   <- $steps (list[workflow.StepKind] * { 这次要跑的检查，按顺序 })
   <- {
-    跑一遍：逐步执行 edit、load、closure、cycle、stale_name 五项检查，全部通过才 commit；返回每一步的结果，失败时停在该步并写清证据
+    执行一遍：逐步执行 edit、load、closure、cycle、stale_name 五项检查，全部通过才提交；返回每一步的结果，失败时停在该步并写清证据
   }
   <- $reach (closure.Reach * { 算可达：它交回走到的名字与没走到的名字，闭包这一步按它判过不过 })
 ```

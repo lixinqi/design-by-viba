@@ -4,7 +4,7 @@
 
 设计要能被机器检查，才谈得上被机器建设。总输入是一个仓库路径 `repo_path`，里面是一组 `.viba.md` 文档；操作分两类。
 
-第一类是合规性检查：像编译一样，逐条原则检查仓库，清楚指出违反了哪一条、在哪个文件、违反了什么。
+第一类是合规性检查：像编译一样，逐条规则检查仓库，清楚指出违反了哪一条、在哪个文件、违反了什么。
 
 第二类是消融实验：删掉 public 够不到的死概念之后，README 需求要求的操作还能不能被解决；还能解决说明模型自洽，不能解决说明断的是哪条边。
 
@@ -15,48 +15,12 @@
 ```bash public
 import readme.types as readme
 import readme.apis as readme_api
-import sum_type.public as sum_type
-import rules.public as rules
-import requirement.public as requirement
-import surface.public as surface
-import concept_edge.public as concept_edge
-import closure.public as closure
-import cycle.public as cycle
-import naming.public as naming
-import hint.public as hint
-import design_phase.public as design_phase
-import workflow.public as workflow
 
 Violation = readme.Violation
 CheckReport = readme.CheckReport
 AblationReport = readme.AblationReport
 Check = readme_api.Check
-Sum = sum_type.Sum
-Variant = sum_type.Variant
-Split = sum_type.Split
-RuleId = rules.RuleId
-List = rules.List
 Ablate = readme_api.Ablate
-Requirement = requirement.Requirement
-MissingRequirement = requirement.MissingRequirement
-Surface = surface.Surface
-PublicLeak = surface.PublicLeak
-Reference = concept_edge.Reference
-Closure = closure.Closure
-CyclicDependency = cycle.CyclicDependency
-NameTriple = naming.NameTriple
-Polarity = naming.Polarity
-Hint = hint.Hint
-MalformedHint = hint.MalformedHint
-Artifact = design_phase.Artifact
-CheckResult = workflow.CheckResult
-CheckEdges = concept_edge.CheckEdges
-Reach = closure.Reach
-Prune = closure.Prune
-Diagnose = cycle.Diagnose
-CheckName = naming.CheckName
-Judge = design_phase.Judge
-Run = workflow.Run
 ```
 
 ## types.viba
@@ -103,7 +67,7 @@ AblationReport =
 
 两类操作，输入都是 `repo_path`。
 
-1. 合规检查：对仓库里每篇文档逐条原则检查——需求、public 边界、概念边、闭包、环、命名、提示、设计阶段、流程，把发现按原则归类，返回违规清单。
+1. 合规检查：对仓库里每篇文档逐条规则检查——需求、public 边界、概念边、闭包、环、命名、提示、设计阶段、流程，把发现按原则归类，返回违规清单。
 2. 消融实验：从根 public 出发删掉够不到的定义，再看需求要求的操作是否还能被解决；能解决返回删掉的清单，不能解决写清缺的是哪一个。
 
 ## apis.viba
@@ -124,9 +88,9 @@ Check =
      readme.CheckReport
   <- $repo (str * { 仓库路径：里面是一组 .viba.md 文档 })
   <- {
-    合规检查：对仓库里每篇文档逐条原则检查，把各原则的发现收成违规清单；$violations 为空时 $passed 为 true，否则逐条写清原则、位置与违反的内容
+    合规检查：对仓库里每篇文档逐条规则检查，把各原则的发现收成违规清单；$violations 为空时 $passed 为 true，否则逐条写清原则、位置与违反的内容
   }
-  <- $run (workflow.Run * { 跑流程：它按 edit、load、closure、cycle、stale_name 的顺序检查，交回每一步的结果 })
+  <- $run (workflow.Run * { 执行流程：它按 edit、load、closure、cycle、stale_name 的顺序检查，交回每一步的结果 })
   <- $reach (closure.Reach * { 算闭包：它交回走到的名字与没走到的名字，够不到的名字记成一条 unreachable })
   <- $diagnose (cycle.Diagnose * { 判环：它交回环的种类，文档级依赖图有环时记成一条 cyclic_dependency })
   <- $names (naming.CheckName * { 查命名：它交回的差异写成一条 name_mismatch })
