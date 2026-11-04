@@ -15,6 +15,7 @@
 ```bash public
 import readme.types as readme
 import readme.apis as readme_api
+import sum_type.public as sum_type
 import requirement.public as requirement
 import surface.public as surface
 import concept_edge.public as concept_edge
@@ -29,6 +30,9 @@ Rule = readme.Rule
 CheckReport = readme.CheckReport
 AblationReport = readme.AblationReport
 Check = readme_api.Check
+Sum = sum_type.Sum
+Variant = sum_type.Variant
+Split = sum_type.Split
 Ablate = readme_api.Ablate
 Requirement = requirement.Requirement
 Gap = requirement.Gap
