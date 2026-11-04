@@ -81,6 +81,7 @@ Rule =
   | $inline_hint (hint.Inline * { 提示写清服务关系、依赖参数放在提示之后；不合时，载荷是这条提示 })
   | $dead_artifact (design_phase.Verdict * { 设计阶段只留规范：该删的文件，载荷是这个判断 })
   | $failed_step (workflow.CheckResult * { 每步都要能被验证：某一步没通过时，载荷是这一步的结果 })
+  | $root_background_changed (requirement.Background * { 铁律：根文档的需求背景不得随意更改；被改动时，载荷是冻结时与现在的两句 })
 
 CheckReport =
   Object
@@ -130,6 +131,7 @@ Check =
   <- $surface_check (surface.Check * { 查边界：它交回的 Leak 写成一条 public_leak })
   <- $edge_check (concept_edge.CheckEdges * { 查概念边：它交回的虚边写成一条 virtual_edge })
   <- $hint_check (hint.Check * { 查提示：它交回的 Inline 写成一条 inline_hint })
+  <- $frozen_check (requirement.CheckFrozen * { 查冻结：它交回的 Background 写成一条 root_background_changed })
 
 Ablate =
      readme.AblationReport
