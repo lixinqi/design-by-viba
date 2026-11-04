@@ -12,9 +12,6 @@
 import naming.types as naming
 import naming.apis as naming_api
 
-NameTriple = naming.NameTriple
-NameMismatch = naming.NameMismatch
-Polarity = naming.Polarity
 CheckName = naming_api.CheckName
 ```
 

@@ -12,7 +12,6 @@
 import concept_edge.types as concept_edge
 import concept_edge.apis as concept_edge_api
 
-Reference = concept_edge.Reference
 CheckEdges = concept_edge_api.CheckEdges
 ```
 

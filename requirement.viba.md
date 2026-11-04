@@ -12,9 +12,6 @@
 import requirement.types as requirement
 import requirement.apis as requirement_api
 
-Requirement = requirement.Requirement
-MissingRequirement = requirement.MissingRequirement
-Background = requirement.Background
 Check = requirement_api.Check
 CheckFrozen = requirement_api.CheckFrozen
 ```

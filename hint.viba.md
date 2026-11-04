@@ -12,8 +12,6 @@
 import hint.types as hint
 import hint.apis as hint_api
 
-Hint = hint.Hint
-MalformedHint = hint.MalformedHint
 Check = hint_api.Check
 ```
 

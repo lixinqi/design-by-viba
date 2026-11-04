@@ -12,7 +12,6 @@
 import workflow.types as workflow
 import workflow.apis as workflow_api
 
-CheckResult = workflow.CheckResult
 Run = workflow_api.Run
 ```
 

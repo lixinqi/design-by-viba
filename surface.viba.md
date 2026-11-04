@@ -12,8 +12,6 @@
 import surface.types as surface
 import surface.apis as surface_api
 
-Surface = surface.Surface
-PublicLeak = surface.PublicLeak
 Check = surface_api.Check
 ```
 
