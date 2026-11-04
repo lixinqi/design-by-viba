@@ -76,16 +76,16 @@ import workflow.public as workflow
 
 Violation =
   Oneof
-  | $missing_requirement (requirement.MissingRequirement * { 先写需求：public 名字讲不出由来时，报这个缺口 })
-  | $public_leak (surface.PublicLeak * { 外部只认 public：import 绕过 public 时，报这条泄漏 })
-  | $virtual_reference (concept_edge.Reference * { 概念要用类型连边：说明里提到、代码里没引用时，报这条虚引用 })
-  | $unreachable (closure.Unreachable * { 用闭包检验模型：从根 public 够不到时，报这个孤立物 })
-  | $cyclic_dependency (cycle.CyclicDependency * { 拆环：递归定义或函数归属不清时，报这个环并带上环上的节点 })
-  | $name_mismatch (naming.NameMismatch * { 文件名、需求背景、public 对不上时，报这处差异 })
-  | $malformed_hint (hint.MalformedHint * { 提示写清服务关系、依赖参数放在提示之后；不合规时，报这条提示 })
-  | $dead_artifact (design_phase.Verdict * { 设计阶段只留规范：该删的文件，报保留或删除的判断 })
-  | $failed_step (workflow.CheckResult * { 每步都要能被验证：某一步没通过时，报这一步的结果 })
-  | $root_background_changed (requirement.Background * { 铁律：根文档的需求背景不得随意更改；被改动时，报冻结文本与当前文本 })
+  | $missing_requirement (requirement.MissingRequirement * { 先写需求：public 名字讲不出由来时，交回这个缺口 })
+  | $public_leak (surface.PublicLeak * { 外部只认 public：import 绕过 public 时，交回这条泄漏 })
+  | $virtual_reference (concept_edge.Reference * { 概念要用类型连边：说明里提到、代码里没引用时，交回这条虚引用 })
+  | $unreachable (closure.Unreachable * { 用闭包检验模型：从根 public 够不到时，交回这个孤立物 })
+  | $cyclic_dependency (cycle.CyclicDependency * { 拆环：递归定义或函数归属不清时，交回这个环并带上环上的节点 })
+  | $name_mismatch (naming.NameMismatch * { 文件名、需求背景、public 对不上时，交回这处差异 })
+  | $malformed_hint (hint.MalformedHint * { 提示写清服务关系、依赖参数放在提示之后；不合规时，交回这条提示 })
+  | $dead_artifact (design_phase.Verdict * { 设计阶段只留规范：该删的文件，交回保留或删除的判断 })
+  | $failed_step (workflow.CheckResult * { 每步都要能被验证：某一步没通过时，交回这一步的结果 })
+  | $root_background_changed (requirement.Background * { 铁律：根文档的需求背景不得随意更改；被改动时，交回冻结文本与当前文本 })
 
 CheckReport =
   Object

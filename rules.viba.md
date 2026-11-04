@@ -2,7 +2,7 @@
 
 ## 需求背景
 
-规则必须落到文件里，Check 与评审才能共用同一份清单，而不是每次靠记忆复述。这份规则集只收前 40 条：25 条来自用户原话，8 条由事件归纳，7 条为元规则；查漏新增的 48 条暂不采纳，等出现新的证据再逐条讨论。示例：`A14` 要求变体带载荷、`A19` 要求标签形态统一，这两条都不是口号，`Check` 能按它们报出 `violation`。根 README 从这里取 `RuleId` 与 `List`，所以这篇有 public。
+规则必须落到文件里，Check 与评审才能共用同一份清单，而不是每次靠记忆复述。这份规则集收 41 条：26 条来自用户原话，8 条由事件归纳，7 条为元规则；查漏新增的 48 条暂不采纳，等出现新的证据再逐条讨论。示例：`A14` 要求变体带载荷、`A19` 要求标签形态统一，这两条都不是口号，`Check` 能按它们报出违规。根 README 从这里取 `RuleId` 与 `List`，所以这篇有 public。
 
 ## public.viba
 
@@ -36,7 +36,7 @@ RuleId =
   | "generated_follows_source" * { 生成物跟源头走，删后重查冗余；依据：原话：json_schema 重新生成了吗；检查：定义集合-函数=应有 schema }
   | "sum_with_payload" * { 和类型是带载荷的原语，不是标签集合；依据：原话：这个错大发了；检查：遍历 Oneof，看变体有无载荷 }
   | "no_record_plus_kind" * { 禁止记录+kind 枚举；依据：原话：替代继承/Oneof；检查：搜 $kind + 纯字符串枚举 }
-  | "variant_names_problem" * { 变体名是情况/问题，不是话题；依据：原话：一个叫需求的 Rule；检查：代入“这条报的是___” }
+  | "variant_names_problem" * { 变体名是情况/问题，不是话题；依据：原话：一个叫需求的 Rule；检查：代入「这条违规说的是___」 }
   | "type_name_says_content" * { 类型名说清内容（装违规叫 Violation）；依据：原话：这哪是 Lesson 啊；检查：读类型名与变体是否同类 }
   | "polarity_consistent" * { 类型名与变体名正负一致；依据：原话：否则要么都是负面的；检查：标 positive/negative 比对 }
   | "tag_form_consistent" * { 变体标签形态统一：问题/术语/动作；依据：原话：inline_hint 只是名词；检查：逐标签归三类 }
@@ -60,17 +60,19 @@ RuleId =
   | "design_phase_spec_only" * { 设计阶段只留规范，删除即检验；依据：删代码/生成物/样例；检查：可达性判据 }
   | "pure_enum_allowed" * { 纯字符串枚举只在确实无数据时允许；依据：Polarity/TagForm 未被骂；检查：检查变体是否本应有数据 }
   | "define_new_words" * { 自造词第一次出现必须当场解释；依据：AGENTS.md 禁词规定；检查：生僻词同段有定义 }
+  | "text_reviewed_by_subagent" * { 交付自然语言前起独立 subagent 审查：不得过分口语，尽量用标准术语，读起来不能拗口；依据：这条规则也是铁律；检查：交付前有审查记录，且审查项覆盖口语、术语、拗口 }
   | "scolding_is_requirement" * { 训斥即需求：摘原话反推痛恨再成规则；依据：这句话本身也是经验；检查：复盘含原话与规则 }
+  | "natural_language_reviewed" * { 自然语言描述要过独立审查：不得过分口语，尽量用标准术语，一定不能拗口；依据：这条是铁律；检查：另起一个审查者通读全部说明文字，逐条改掉拗口处 }
 
 RuleBook =
   Object
-  * $accepted (list[RuleId] * { 已采纳的规则；只收前 40 条 })
+  * $accepted (list[RuleId] * { 已采纳的规则；共 41 条 })
   * $rejected (int * { 未采纳的条数；查漏新增的 48 条暂不进入规则集 })
 ```
 
 ## 基本操作
 
-只有一个操作：列规则。交回规则集里已采纳的 40 条，以及未采纳的条数。
+只有一个操作：列规则。交回规则集里已采纳的 41 条，以及未采纳的条数。
 
 ## apis.viba
 
@@ -79,8 +81,8 @@ import rules.types as rules
 
 List =
      rules.RuleBook
-  <- $accepted (list[rules.RuleId] * { 已采纳的规则，按 A01 到 A40 的顺序 })
+  <- $accepted (list[rules.RuleId] * { 已采纳的规则，按 A01 到 A41 的顺序 })
   <- {
-    列规则：把已采纳的 40 条按顺序交回，并报出未采纳的条数；规则集只收有证据的条目，新条目要等出现新证据
+    列规则：把已采纳的 41 条按顺序交回，并交回未采纳的条数；规则集只收有证据的条目，新条目要等出现新证据
   }
 ```
