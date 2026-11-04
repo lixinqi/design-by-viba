@@ -4,7 +4,7 @@
 
 删改之后不能只读一遍就提交：要重新加载文档、跑一次闭包、检查环、搜旧名字。每一步都要有能被重复执行的判据，否则下一次改动又会把已经理清的关系打乱。
 
-示例：每次改名后全仓搜旧名（`ckpt_sample`、`checkpoint.`、`Methodology`）确认为 0；每次删改后临时恢复生成器再执行一遍，79 份 schema 生成无误再删掉；提交信息里写清这一步用哪条规则判的，例如「Rename the sample and bypass-plan docs」。根 README 的 `Check` 依赖本篇的检查，`Violation` 用本篇的发现类型作载荷，所以这篇有 public。
+示例：每次改名后全仓搜旧名（`ckpt_sample`、`checkpoint.`、`Methodology`）确认为 0；每次删改后临时恢复生成器再执行一遍，79 份 schema 生成无误再删掉；提交信息里写清这一步用哪条规则判的，例如「Rename the sample and bypass-plan docs」。根 README 的 `Check` 依赖本篇的 `Run`，所以这篇有 public。
 
 ## public.viba
 
@@ -46,7 +46,7 @@ CheckResult =
 
 ## 基本操作
 
-只有一个操作：执行一遍。按 `Violation` 的顺序逐条检查，任何一步不通过就停在那一步，并把证据写清。
+只有一个操作：执行一遍。按 `$steps` 里 `CheckName` 的顺序逐条检查，任何一步不通过就停在那一步，并把证据写清。
 
 ## apis.viba
 

@@ -4,7 +4,7 @@
 
 删除不能凭印象，要靠图：从根文档的 public 出发做可达性，够不到的就是孤立物。删之前它只是可疑，删之后图不对了，问题立刻看得见——闭包是成本最低的检验手段。
 
-示例：入口从「整份 README」收紧到「README 的 public」之后，可达定义从 240 个降到 49 个，文档从 12 份减到 8 份；再按提示补回缺的边，稳定在 11 份。它也会暴露错删：`SampleConfigBase` 被删掉那次，不是闭包算错，而是 `RunSpec.$config` 那条边没连上。非文档文件同样适用：被 public 够不到的 102 个文件一次性删掉。根 README 的 `Check` 依赖本篇的检查，`Violation` 用本篇的发现类型作载荷，所以这篇有 public。
+示例：入口从「整份 README」收紧到「README 的 public」之后，可达定义从 240 个降到 49 个，文档从 12 份减到 8 份；再按提示补回缺的边，稳定在 11 份。它也会暴露错删：`SampleConfigBase` 被删掉那次，不是闭包算错，而是 `RunSpec.$config` 那条边没连上。非文档文件同样适用：被 public 够不到的 102 个文件一次性删掉。根 README 的 `Check` 依赖本篇的 `Reach` 与 `Prune`，所以这篇有 public。
 
 ## public.viba
 

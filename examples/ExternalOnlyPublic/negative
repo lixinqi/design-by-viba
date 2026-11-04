@@ -1,7 +1,0 @@
-反例
-
-规则：外部只依赖 public，types/apis 是内部实现
-
-违反这条规则的情形：原话：外部只能依赖 public。
-
-检查时命中：跨文档 import 以 .public 结尾。

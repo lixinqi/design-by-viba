@@ -1,5 +1,0 @@
-正例
-
-规则：外部只依赖 public，types/apis 是内部实现
-
-满足这条规则的情形：跨文档 import 以 .public 结尾 时判定通过。

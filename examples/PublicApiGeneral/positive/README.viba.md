@@ -1,0 +1,51 @@
+# 缓存站点构建
+
+## 需求背景
+
+输入是一个 Markdown 目录的路径 `$root`；操作有两类：把目录里的页面构建成一份站点，把一个页面的正文写进缓存。本示例是 PublicApiGeneral 的正例：`Build` 把写缓存交给 `Cache` 操作，参数里没有缓存内部的存储布局。
+
+## public.viba
+
+```bash public
+import readme.types as readme
+import readme.apis as readme_api
+
+Site = readme.Site
+
+Build = readme_api.Build
+```
+
+## types.viba
+
+```bash types
+import cache.public as cache
+
+
+Site =
+  Object
+  * $pages (list[str] * { 构建出来的页面路径，顺序与目录一致 })
+  * $entries (list[cache.Entry] * { 写进缓存的页面记录，顺序与页面一致 })
+```
+
+## 基本操作
+
+1. 读目录里的每个 Markdown 文件，按文件路径排好。
+2. 按文件路径算出每个页面的缓存键。
+3. 把页面正文按键写进缓存。
+4. 把页面路径与写下的缓存记录收进 `Site`，交回。
+
+## apis.viba
+
+```bash apis
+import readme.types as readme
+import cache.public as cache
+
+
+Build =
+     readme.Site
+  <- $root (str * { Markdown 目录的路径 })
+  <- {
+    构建：把目录里的每个页面正文写进缓存，交回页面路径与缓存记录
+  }
+  <- $cache (cache.Cache * { 缓存：交回写下的键与页面路径，用它把记录收进站点 })
+```

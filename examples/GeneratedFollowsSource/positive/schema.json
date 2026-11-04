@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Config",
+  "type": "object",
+  "properties": {
+    "cache": { "$ref": "#/$defs/Settings" },
+    "log_level": { "type": "string" },
+    "workers": { "type": "integer" }
+  },
+  "$defs": {
+    "Settings": {
+      "type": "object",
+      "properties": {
+        "ttl_seconds": { "type": "integer" },
+        "max_entries": { "type": "integer" },
+        "namespace": { "type": "string" }
+      }
+    }
+  }
+}
