@@ -28,7 +28,6 @@ import workflow.public as workflow
 Rule = readme.Rule
 CheckReport = readme.CheckReport
 AblationReport = readme.AblationReport
-Violation = readme.Violation
 Check = readme_api.Check
 Ablate = readme_api.Ablate
 Requirement = requirement.Requirement
@@ -54,30 +53,34 @@ Run = workflow.Run
 
 ## types.viba
 
-两类操作共用一套词汇：一条违规记明是哪条原则、在哪个文件、违反了什么；一次检查是违规的清单；一次消融记下删掉了哪些定义、需求还解不解决得了、缺的是哪一个。
+两类操作共用一套词汇：一条违规就是一条规则的变体，载荷就是那条规则查出来的东西；一次检查是违规的清单；一次消融记下删掉了哪些定义、需求还解不解决得了、缺的是哪一个。
 
 ```bash types
+import requirement.public as requirement
+import surface.public as surface
+import concept_edge.public as concept_edge
+import closure.public as closure
+import cycle.public as cycle
+import naming.public as naming
+import hint.public as hint
+import design_phase.public as design_phase
+import workflow.public as workflow
+
 Rule =
   Oneof
-  | "requirement" * { 先写需求：没有需求，public 只是一张清单 }
-  | "surface" * { 外部只认 public：types 与 apis 是内部实现 }
-  | "concept_edge" * { 概念要用类型连边：说明里提到不算依赖 }
-  | "closure" * { 用闭包检验模型：从根 public 出发够不到的，删 }
-  | "cycle" * { 拆环：递归定义用泛型，函数归属不明就换模块 }
-  | "naming" * { 文件名、需求背景、public 三者信息量一致 }
-  | "hint" * { 提示写清服务关系；依赖参数放在提示之后 }
-  | "design_phase" * { 设计阶段只留规范：代码与生成物够不到就删 }
-  | "workflow" * { 每步都要能被验证：加载、闭包、环、旧名 }
-
-Violation =
-  Object
-  * $principle (Rule * { 违反了哪条规则 })
-  * $where (str * { 在哪个文件、哪一行或哪个名字上 })
-  * $what (str * { 违反了什么；要能让没读过这段对话的人看懂 })
+  | $requirement (requirement.Gap * { 先写需求：public 名字讲不出由来时，载荷是这个缺口 })
+  | $surface (surface.Leak * { 外部只认 public：import 绕过 public 时，载荷是这条泄漏 })
+  | $concept_edge (concept_edge.Reference * { 概念要用类型连边：说明里提到不算依赖，载荷是这条虚边 })
+  | $closure (closure.Orphan * { 用闭包检验模型：从根 public 出发够不到时，载荷是这个孤立物 })
+  | $cycle (cycle.Cycle * { 拆环：递归定义或函数归属不清时，载荷是带节点的环 })
+  | $naming (naming.Mismatch * { 文件名、需求背景、public 对不上时，载荷是这处差异 })
+  | $hint (hint.Inline * { 提示写清服务关系、依赖参数放在提示之后；不合时，载荷是这条提示 })
+  | $design_phase (design_phase.Verdict * { 设计阶段只留规范：该删的文件，载荷是这个判断 })
+  | $workflow (workflow.CheckResult * { 每步都要能被验证：某一步没通过时，载荷是这一步的结果 })
 
 CheckReport =
   Object
-  * $violations (list[Violation] * { 查出来的全部违规；空列表表示合规 })
+  * $violations (list[Rule] * { 查出来的全部违规；每个变体就是一条规则和它查到的载荷；空列表表示合规 })
   * $passed (bool * { 是否为真：没有违规即合规 })
 
 AblationReport =

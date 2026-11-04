@@ -4,7 +4,7 @@
 
 三处说的是同一件事：文件名叫什么，需求背景就该讲什么，public 就该导出什么。不一致说明概念还没理清，而且会一路传染到 import 与讨论里。
 
-示例：`checkpoint.viba.md` 与目录同名、和 `README.viba.md` 争入口，改成 `ckpt_bypass_plan.viba.md`，内容是旁路方案；`scaling.viba.md` 的内容只剩档位，改成 `level.viba.md`；`measures` 的 public 还挂着已删文档的 `Methodology` 前缀，改成 `Metric`、`Tolerance`。三处对齐之后，读文件名就能猜到 import 长什么样。每次删掉一个死概念之后，都要回头再查这三样，删东西最容易让名字与内容脱节。根 README 从这里取 `NameTriple` 与 `CheckName`，所以这篇有 public。
+示例：`checkpoint.viba.md` 与目录同名、和 `README.viba.md` 争入口，改成 `ckpt_bypass_plan.viba.md`，内容是旁路方案；`scaling.viba.md` 的内容只剩档位，改成 `level.viba.md`；`measures` 的 public 还挂着已删文档的 `Methodology` 前缀，改成 `Metric`、`Tolerance`。三处对齐之后，读文件名就能猜到 import 长什么样。每次删掉一个死概念之后，都要回头再查这三样，删东西最容易让名字与内容脱节。根 README 从这里取 `NameTriple`、`Mismatch` 与 `CheckName`，所以这篇有 public。
 
 ## public.viba
 
@@ -13,6 +13,7 @@ import naming.types as naming
 import naming.apis as naming_api
 
 NameTriple = naming.NameTriple
+Mismatch = naming.Mismatch
 CheckName = naming_api.CheckName
 ```
 
