@@ -72,15 +72,15 @@ import workflow.public as workflow
 
 Rule =
   Oneof
-  | $requirement (requirement.Gap * { 先写需求：public 名字讲不出由来时，载荷是这个缺口 })
-  | $surface (surface.Leak * { 外部只认 public：import 绕过 public 时，载荷是这条泄漏 })
-  | $concept_edge (concept_edge.Reference * { 概念要用类型连边：说明里提到不算依赖，载荷是这条虚边 })
-  | $closure (closure.Orphan * { 用闭包检验模型：从根 public 出发够不到时，载荷是这个孤立物 })
+  | $missing_requirement (requirement.Gap * { 先写需求：public 名字讲不出由来时，载荷是这个缺口 })
+  | $public_leak (surface.Leak * { 外部只认 public：import 绕过 public 时，载荷是这条泄漏 })
+  | $virtual_edge (concept_edge.Reference * { 概念要用类型连边：说明里提到不算依赖，载荷是这条虚边 })
+  | $unreachable (closure.Orphan * { 用闭包检验模型：从根 public 出发够不到时，载荷是这个孤立物 })
   | $cycle (cycle.Cycle * { 拆环：递归定义或函数归属不清时，载荷是带节点的环 })
-  | $naming (naming.Mismatch * { 文件名、需求背景、public 对不上时，载荷是这处差异 })
-  | $hint (hint.Inline * { 提示写清服务关系、依赖参数放在提示之后；不合时，载荷是这条提示 })
-  | $design_phase (design_phase.Verdict * { 设计阶段只留规范：该删的文件，载荷是这个判断 })
-  | $workflow (workflow.CheckResult * { 每步都要能被验证：某一步没通过时，载荷是这一步的结果 })
+  | $name_mismatch (naming.Mismatch * { 文件名、需求背景、public 对不上时，载荷是这处差异 })
+  | $inline_hint (hint.Inline * { 提示写清服务关系、依赖参数放在提示之后；不合时，载荷是这条提示 })
+  | $dead_artifact (design_phase.Verdict * { 设计阶段只留规范：该删的文件，载荷是这个判断 })
+  | $failed_step (workflow.CheckResult * { 每步都要能被验证：某一步没通过时，载荷是这一步的结果 })
 
 CheckReport =
   Object
@@ -122,14 +122,14 @@ Check =
     合规检查：对仓库里每篇文档逐条原则检查，把各原则的发现收成违规清单；$violations 为空时 $passed 为 true，否则逐条写清原则、位置与违反的内容
   }
   <- $run (workflow.Run * { 跑流程：它按 edit、load、closure、cycle、stale_name 的顺序检查，交回每一步的结果 })
-  <- $reach (closure.Reach * { 算闭包：它交回走到的名字与没走到的名字，够不到的名字记成 closure 原则的违规 })
-  <- $diagnose (cycle.Diagnose * { 判环：它交回环的种类，文档级依赖图有环时记成 cycle 原则的违规 })
-  <- $names (naming.CheckName * { 查命名：它交回的差异写进 naming 原则的违规 })
-  <- $judge (design_phase.Judge * { 判文件：它交回的保留或删除理由写进 design_phase 原则的违规 })
-  <- $requirement_check (requirement.Check * { 查需求：它交回的 Gap 写进 requirement 原则的违规 })
-  <- $surface_check (surface.Check * { 查边界：它交回的 Leak 写进 surface 原则的违规 })
-  <- $edge_check (concept_edge.CheckEdges * { 查概念边：它交回的虚边写进 concept_edge 原则的违规 })
-  <- $hint_check (hint.Check * { 查提示：它交回的 Inline 写进 hint 原则的违规 })
+  <- $reach (closure.Reach * { 算闭包：它交回走到的名字与没走到的名字，够不到的名字记成一条 unreachable })
+  <- $diagnose (cycle.Diagnose * { 判环：它交回环的种类，文档级依赖图有环时记成一条 cycle })
+  <- $names (naming.CheckName * { 查命名：它交回的差异写成一条 name_mismatch })
+  <- $judge (design_phase.Judge * { 判文件：它交回的保留或删除理由写成一条 dead_artifact })
+  <- $requirement_check (requirement.Check * { 查需求：它交回的 Gap 写成一条 missing_requirement })
+  <- $surface_check (surface.Check * { 查边界：它交回的 Leak 写成一条 public_leak })
+  <- $edge_check (concept_edge.CheckEdges * { 查概念边：它交回的虚边写成一条 virtual_edge })
+  <- $hint_check (hint.Check * { 查提示：它交回的 Inline 写成一条 inline_hint })
 
 Ablate =
      readme.AblationReport
