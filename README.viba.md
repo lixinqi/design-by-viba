@@ -26,7 +26,7 @@ import hint.public as hint
 import design_phase.public as design_phase
 import workflow.public as workflow
 
-Rule = readme.Rule
+Violation = readme.Violation
 CheckReport = readme.CheckReport
 AblationReport = readme.AblationReport
 Check = readme_api.Check
@@ -42,6 +42,7 @@ Reference = concept_edge.Reference
 Closure = closure.Closure
 Cycle = cycle.Cycle
 NameTriple = naming.NameTriple
+Polarity = naming.Polarity
 Hint = hint.Hint
 Inline = hint.Inline
 Artifact = design_phase.Artifact
@@ -70,7 +71,7 @@ import hint.public as hint
 import design_phase.public as design_phase
 import workflow.public as workflow
 
-Rule =
+Violation =
   Oneof
   | $missing_requirement (requirement.Gap * { 先写需求：public 名字讲不出由来时，载荷是这个缺口 })
   | $public_leak (surface.Leak * { 外部只认 public：import 绕过 public 时，载荷是这条泄漏 })
@@ -85,7 +86,7 @@ Rule =
 
 CheckReport =
   Object
-  * $violations (list[Rule] * { 查出来的全部违规；每个变体就是一条规则和它查到的载荷；空列表表示合规 })
+  * $violations (list[Violation] * { 查出来的全部违规；每个变体就是一种违规和它带的证据；空列表表示合规 })
   * $passed (bool * { 是否为真：没有违规即合规 })
 
 AblationReport =

@@ -4,7 +4,7 @@
 
 三处说的是同一件事：文件名叫什么，需求背景就该讲什么，public 就该导出什么。不一致说明概念还没理清，而且会一路传染到 import 与讨论里。
 
-示例：`checkpoint.viba.md` 与目录同名、和 `README.viba.md` 争入口，改成 `ckpt_bypass_plan.viba.md`，内容是旁路方案；`scaling.viba.md` 的内容只剩档位，改成 `level.viba.md`；`measures` 的 public 还挂着已删文档的 `Methodology` 前缀，改成 `Metric`、`Tolerance`。三处对齐之后，读文件名就能猜到 import 长什么样。每次删掉一个死概念之后，都要回头再查这三样，删东西最容易让名字与内容脱节。根 README 从这里取 `NameTriple`、`Mismatch` 与 `CheckName`，所以这篇有 public。
+示例：`checkpoint.viba.md` 与目录同名、和 `README.viba.md` 争入口，改成 `ckpt_bypass_plan.viba.md`，内容是旁路方案；`scaling.viba.md` 的内容只剩档位，改成 `level.viba.md`；`measures` 的 public 还挂着已删文档的 `Methodology` 前缀，改成 `Metric`、`Tolerance`。三处对齐之后，读文件名就能猜到 import 长什么样。名字的正负也要一致：类型名是正面的，变体标签也得是正面的；否则类型与标签一起用负面名。示例：`Violation` 的十个变体全是负面名（`missing_requirement`、`public_leak` 等），若类型叫 `Rule` 却挂着这些负面标签，读起来就前后矛盾。每次删掉一个死概念之后，都要回头再查这三样，删东西最容易让名字与内容脱节。根 README 从这里取 `NameTriple`、`Mismatch`、`Polarity` 与 `CheckName`，所以这篇有 public。
 
 ## public.viba
 
@@ -14,6 +14,7 @@ import naming.apis as naming_api
 
 NameTriple = naming.NameTriple
 Mismatch = naming.Mismatch
+Polarity = naming.Polarity
 CheckName = naming_api.CheckName
 ```
 
@@ -29,9 +30,21 @@ NameTriple =
   * $surface (list[str] * { public 里导出的名字 })
 
 Mismatch =
+  Oneof
+  | $name_mismatch (NameTriple * { 文件名、需求背景、public 三处对不上 })
+  | $polarity_clash (PolarityClash * { 类型名与变体标签的正负性对不上 })
+
+Polarity =
+  Oneof
+  | "positive" * { 正面名：说这个东西是什么，例如 Violation 之外的 Rule、Surface }
+  | "negative" * { 负面名：说哪里出了问题，例如 Violation 与 missing_requirement }
+
+PolarityClash =
   Object
-  * $triple (NameTriple * { 被检查的那一组 })
-  * $why (str * { 哪里对不上：文件名说 A，背景说 B，public 导出 C })
+  * $type_name (str * { 类型名，例如 Rule })
+  * $type_polarity (Polarity * { 类型名的正负 })
+  * $tags (list[str] * { 变体标签，例如 missing_requirement、public_leak })
+  * $tag_polarity (Polarity * { 标签的正负；与 $type_polarity 不同就是冲突 })
 ```
 
 ## 基本操作
@@ -47,6 +60,6 @@ CheckName =
      (naming.Mismatch | nil)
   <- $triple (naming.NameTriple * { 文件名、一句话与 public 清单 })
   <- {
-    查一致：文件名里的关键词要能从 $statement 里找到，$surface 的每个名字要能用 $statement 解释；对不上时返回差异，全部对得上时给 nil
+    查一致：文件名里的关键词要能从 $statement 里找到，$surface 的每个名字要能用 $statement 解释，类型名与变体标签的正负要一致；对不上时返回差异，全部对得上时给 nil
   }
 ```
