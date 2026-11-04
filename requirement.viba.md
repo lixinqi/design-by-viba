@@ -13,6 +13,7 @@ import requirement.types as requirement
 import requirement.apis as requirement_api
 
 Check = requirement_api.Check
+
 CheckFrozen = requirement_api.CheckFrozen
 ```
 
