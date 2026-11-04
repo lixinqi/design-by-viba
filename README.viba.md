@@ -2,9 +2,13 @@
 
 ## 需求背景
 
-设计最容易散成一个个点：每条都对，彼此没有边。viba 把一份文档变成可执行规范——文档是目录，代码块是模块，名字有唯一的家，引用就是边。这套方法是在一次真实的重构里磨出来的：先写需求，再由需求推出概念与操作，然后用闭包检验删掉够不到的东西，用图检查暴露缺的边和多余的环。
+设计要能被机器检查，才谈得上被机器建设。总输入是一个仓库路径 `repo_path`，里面是一组 `.viba.md` 文档；操作分两类。
 
-本篇是入口：九条经验各自回答一个问题，从 `Requirement` 读起，再顺着 public 往下。示例：本仓库自己就按这个方法组织——每篇文档都有需求背景、public、types、基本操作、apis，外部引用只走 public，全仓没有环。
+第一类是合规性检查：像编译一样，逐条原则检查仓库，清楚指出违反了哪一条、在哪个文件、违反了什么。
+
+第二类是消融实验：删掉 public 够不到的死概念之后，README 需求要求的操作还能不能被解决；还能解决说明模型自洽，不能解决说明断的是哪条边。
+
+示例：本仓库就是被检查的仓库——根 public 导出 `Check` 与 `Ablate` 两个操作，输入都是 `repo_path`；九条经验各提供一条原则，检查结果按原则归类。
 
 ## public.viba
 
@@ -22,31 +26,35 @@ import design_phase.public as design_phase
 import workflow.public as workflow
 
 Lesson = readme.Lesson
-Read = readme_api.Read
+CheckReport = readme.CheckReport
+AblationReport = readme.AblationReport
+Violation = readme.Violation
+Check = readme_api.Check
+Ablate = readme_api.Ablate
 Requirement = requirement.Requirement
+Gap = requirement.Gap
 Surface = surface.Surface
+Leak = surface.Leak
 Reference = concept_edge.Reference
 Closure = closure.Closure
 Cycle = cycle.Cycle
 NameTriple = naming.NameTriple
 Hint = hint.Hint
+Inline = hint.Inline
 Artifact = design_phase.Artifact
 CheckResult = workflow.CheckResult
-State = requirement.State
-Export = surface.Export
 CheckEdges = concept_edge.CheckEdges
 Reach = closure.Reach
 Prune = closure.Prune
 Diagnose = cycle.Diagnose
 CheckName = naming.CheckName
-Write = hint.Write
 Judge = design_phase.Judge
 Run = workflow.Run
 ```
 
 ## types.viba
 
-九条经验回答九个问题，按依赖顺序排列：先有需求，才有 public；public 之间用类型连边，才谈得上闭包；闭包删东西之前，先看有没有环、名字对不对；最后才是改完之后怎么验证。
+两类操作共用一套词汇：一条违规记明是哪条原则、在哪个文件、违反了什么；一次检查是违规的清单；一次消融记下删掉了哪些定义、需求还解不解决得了、缺的是哪一个。
 
 ```bash types
 Lesson =
@@ -61,27 +69,68 @@ Lesson =
   | "design_phase" * { 设计阶段只留规范：代码与生成物够不到就删 }
   | "workflow" * { 每步都要能被验证：加载、闭包、环、旧名 }
 
-Reading =
+Violation =
   Object
-  * $done (list[Lesson] * { 已经读过的经验，按顺序 })
-  * $next ((Lesson | nil) * { 下一条要读的经验；全部读完时给 nil })
+  * $principle (Lesson * { 违反了哪条原则 })
+  * $where (str * { 在哪个文件、哪一行或哪个名字上 })
+  * $what (str * { 违反了什么；要能让没读过这段对话的人看懂 })
+
+CheckReport =
+  Object
+  * $violations (list[Violation] * { 查出来的全部违规；空列表表示合规 })
+  * $passed (bool * { 是否为真：没有违规即合规 })
+
+AblationReport =
+  Object
+  * $removed (list[str] * { 消融删掉的定义，按模块分组 })
+  * $still_solves (bool * { 删完之后，需求要求的操作是否还能被解决 })
+  * $missing (list[str] * { 解决不了的缺口；$still_solves 为 true 时为空 })
 ```
 
 ## 基本操作
 
-1. 读一条：从需求背景开始，看这条经验解决什么问题，再看它的 public 给了谁。
-2. 照着改：文件、需求背景、public 三处一起改，保持说的是同一件事。
-3. 验证：重新加载文档，跑一次闭包，检查有没有环、有没有旧名字残留。
+两类操作，输入都是 `repo_path`。
+
+1. 合规检查：对仓库里每篇文档逐条原则检查——需求、public 边界、概念边、闭包、环、命名、提示、设计阶段、流程，把发现按原则归类，返回违规清单。
+2. 消融实验：从根 public 出发删掉够不到的定义，再看需求要求的操作是否还能被解决；能解决返回删掉的清单，不能解决写清缺的是哪一个。
 
 ## apis.viba
 
 ```bash apis
 import readme.types as readme
+import closure.public as closure
+import concept_edge.public as concept_edge
+import cycle.public as cycle
+import design_phase.public as design_phase
+import hint.public as hint
+import naming.public as naming
+import requirement.public as requirement
+import surface.public as surface
+import workflow.public as workflow
 
-Read =
-     readme.Reading
-  <- $done (list[readme.Lesson] * { 已经读过的经验，按 Lesson 的顺序 })
+Check =
+     readme.CheckReport
+  <- $repo (str * { 仓库路径：里面是一组 .viba.md 文档 })
   <- {
-    读下一条：按 Lesson 的顺序交回还没读过的那一条；全部读完时 $next 给 nil，回到需求背景重新检查一遍
+    合规检查：对仓库里每篇文档逐条原则检查，把各原则的发现收成违规清单；$violations 为空时 $passed 为 true，否则逐条写清原则、位置与违反的内容
   }
+  <- $run (workflow.Run * { 跑流程：它按 edit、load、closure、cycle、stale_name 的顺序检查，交回每一步的结果 })
+  <- $reach (closure.Reach * { 算闭包：它交回走到的名字与没走到的名字，够不到的名字记成 closure 原则的违规 })
+  <- $diagnose (cycle.Diagnose * { 判环：它交回环的种类，文档级依赖图有环时记成 cycle 原则的违规 })
+  <- $names (naming.CheckName * { 查命名：它交回的差异写进 naming 原则的违规 })
+  <- $judge (design_phase.Judge * { 判文件：它交回的保留或删除理由写进 design_phase 原则的违规 })
+  <- $requirement_check (requirement.Check * { 查需求：它交回的 Gap 写进 requirement 原则的违规 })
+  <- $surface_check (surface.Check * { 查边界：它交回的 Leak 写进 surface 原则的违规 })
+  <- $edge_check (concept_edge.CheckEdges * { 查概念边：它交回的虚边写进 concept_edge 原则的违规 })
+  <- $hint_check (hint.Check * { 查提示：它交回的 Inline 写进 hint 原则的违规 })
+
+Ablate =
+     readme.AblationReport
+  <- $repo (str * { 仓库路径：里面是一组 .viba.md 文档 })
+  <- $required (list[str] * { 需求要求的操作名；README 需求背景里列的就是这些 })
+  <- {
+    消融实验：从根 public 出发删掉够不到的定义，再看 $required 里的操作是否还能被解决；能解决返回删掉的清单，不能解决时 $missing 写清缺的是哪一个
+  }
+  <- $reach (closure.Reach * { 算可达：它交回走到的名字，没走到的就是这次要消融掉的 })
+  <- $prune (closure.Prune * { 删孤立：它按种类删除够不到的定义，交回这一轮删掉的条目 })
 ```
