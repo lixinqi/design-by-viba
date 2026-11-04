@@ -10,84 +10,6 @@
 import rules.types as rules
 import rules.apis as rules_api
 
-
-ChangeBoundary =
-  Object
-  * $statement (str * { 只改任务范围内、且先声明范围的对象；越界先确认 })
-  * $evidence (str * { 三方评审一致：没有边界感与超出任务范围同源 })
-  * $check (str * { 对照任务范围与改动清单，越界项未获确认即违规 })
-  * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
-
-TargetBeforeEdit =
-  Object
-  * $statement (str * { 改之前确认目标文件唯一，改后核对 diff 没有动错 })
-  * $evidence (str * { 改错文件不会被任何现有检查发现 })
-  * $check (str * { 改前列出目标路径并确认唯一，改后 diff 逐文件核对 })
-  * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
-
-FunctionScope =
-  Object
-  * $statement (str * { 函数只用它的参数与返回值表达语义，不替调用方保管知识 })
-  * $evidence (str * { 依赖规则只约束调用写法，不约束函数掌握的知识 })
-  * $check (str * { 检查函数体是否使用了参数与返回值之外的状态或约定 })
-  * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
-
-ThirdPersonReadable =
-  Object
-  * $statement (str * { 术语首次出现给定义，不假设读者看过当前对话 })
-  * $evidence (str * { 自造词规则只管生词，不管对读者的假设 })
-  * $check (str * { 把文档交给未参与对话的读者，术语与指代必须能读懂 })
-  * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
-
-NoChangeLog =
-  Object
-  * $statement (str * { 文档写现在是什么，变更写进提交信息 })
-  * $evidence (str * { 说明信息量规则管不到整篇写成变更史 })
-  * $check (str * { 搜索“本次”“改为”“新增”这类变更叙述，出现在正文即违规 })
-  * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
-
-SectionMatchesHeading =
-  Object
-  * $statement (str * { 每节内容只回答本节标题 })
-  * $evidence (str * { 结构规则只查章节名与顺序，不查内容是否对题 })
-  * $check (str * { 逐节读首句与末句，是否在回答本节标题 })
-  * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
-
-DocsNameOnlyPublic =
-  Object
-  * $statement (str * { 文档只提 public 里的名字，不暴露内部 api })
-  * $evidence (str * { 外部只依赖 public 管 import，管不到正文提到内部 api })
-  * $check (str * { 扫描文档正文中出现的名字，是否都能在目标文档的 public 找到 })
-  * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
-
-ExplainHardParts =
-  Object
-  * $statement (str * { 难点先铺垫，必要时附录，不假设读者自会 })
-  * $evidence (str * { 现有规则没有铺垫或附录的要求 })
-  * $check (str * { 找出首次出现的新概念，检查前文是否给出定义或例子 })
-  * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
-
-PublicApiGeneral =
-  Object
-  * $statement (str * { 对外 api 不耦合内部实现细节 })
-  * $evidence (str * { 接口对得起需求只管方向，不管是否耦合内部 })
-  * $check (str * { 检查 public api 的参数与返回是否引用了内部类型或内部约定 })
-  * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
-
-NoTimeBoundContent =
-  Object
-  * $statement (str * { 不写“今天”“本次”“当前对话”，只写适用条件 })
-  * $evidence (str * { 现有条款不管与时刻、受众耦合的内容 })
-  * $check (str * { 搜索时间词与对话指代，命中即改为适用条件 })
-  * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
-
-SmallFunctions =
-  Object
-  * $statement (str * { 函数短，圈复杂度受控，短 if 也计入 })
-  * $evidence (str * { 规则集没有函数长度与圈复杂度的约束 })
-  * $check (str * { 统计分支数与行数，超过阈值即违规 })
-  * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
-
 Finding = rules.Finding
 CheckViolations = rules_api.CheckViolations
 ```
@@ -447,6 +369,84 @@ TextReviewedBySubagent =
   * $statement (str * { 交付自然语言前起独立 subagent 审查：不得过分口语，尽量用标准术语，读起来不能拗口 })
   * $evidence (str * { 这条规则也是铁律 })
   * $check (str * { 交付前有审查记录，覆盖口语、术语、拗口 })
+  * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+
+
+ChangeBoundary =
+  Object
+  * $statement (str * { 只改任务范围内、且先声明范围的对象；越界先确认 })
+  * $evidence (str * { 三方评审一致：没有边界感与超出任务范围同源 })
+  * $check (str * { 对照任务范围与改动清单，越界项未获确认即违规 })
+  * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+
+TargetBeforeEdit =
+  Object
+  * $statement (str * { 改之前确认目标文件唯一，改后核对 diff 没有动错 })
+  * $evidence (str * { 改错文件不会被任何现有检查发现 })
+  * $check (str * { 改前列出目标路径并确认唯一，改后 diff 逐文件核对 })
+  * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+
+FunctionScope =
+  Object
+  * $statement (str * { 函数只用它的参数与返回值表达语义，不替调用方保管知识 })
+  * $evidence (str * { 依赖规则只约束调用写法，不约束函数掌握的知识 })
+  * $check (str * { 检查函数体是否使用了参数与返回值之外的状态或约定 })
+  * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+
+ThirdPersonReadable =
+  Object
+  * $statement (str * { 术语首次出现给定义，不假设读者看过当前对话 })
+  * $evidence (str * { 自造词规则只管生词，不管对读者的假设 })
+  * $check (str * { 把文档交给未参与对话的读者，术语与指代必须能读懂 })
+  * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+
+NoChangeLog =
+  Object
+  * $statement (str * { 文档写现在是什么，变更写进提交信息 })
+  * $evidence (str * { 说明信息量规则管不到整篇写成变更史 })
+  * $check (str * { 搜索“本次”“改为”“新增”这类变更叙述，出现在正文即违规 })
+  * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+
+SectionMatchesHeading =
+  Object
+  * $statement (str * { 每节内容只回答本节标题 })
+  * $evidence (str * { 结构规则只查章节名与顺序，不查内容是否对题 })
+  * $check (str * { 逐节读首句与末句，是否在回答本节标题 })
+  * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+
+DocsNameOnlyPublic =
+  Object
+  * $statement (str * { 文档只提 public 里的名字，不暴露内部 api })
+  * $evidence (str * { 外部只依赖 public 管 import，管不到正文提到内部 api })
+  * $check (str * { 扫描文档正文中出现的名字，是否都能在目标文档的 public 找到 })
+  * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+
+ExplainHardParts =
+  Object
+  * $statement (str * { 难点先铺垫，必要时附录，不假设读者自会 })
+  * $evidence (str * { 现有规则没有铺垫或附录的要求 })
+  * $check (str * { 找出首次出现的新概念，检查前文是否给出定义或例子 })
+  * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+
+PublicApiGeneral =
+  Object
+  * $statement (str * { 对外 api 不耦合内部实现细节 })
+  * $evidence (str * { 接口对得起需求只管方向，不管是否耦合内部 })
+  * $check (str * { 检查 public api 的参数与返回是否引用了内部类型或内部约定 })
+  * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+
+NoTimeBoundContent =
+  Object
+  * $statement (str * { 不写“今天”“本次”“当前对话”，只写适用条件 })
+  * $evidence (str * { 现有条款不管与时刻、受众耦合的内容 })
+  * $check (str * { 搜索时间词与对话指代，命中即改为适用条件 })
+  * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+
+SmallFunctions =
+  Object
+  * $statement (str * { 函数短，圈复杂度受控，短 if 也计入 })
+  * $evidence (str * { 规则集没有函数长度与圈复杂度的约束 })
+  * $check (str * { 统计分支数与行数，超过阈值即违规 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
 
 Finding =
