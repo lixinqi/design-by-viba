@@ -16,6 +16,7 @@
 import readme.types as readme
 import readme.apis as readme_api
 import sum_type.public as sum_type
+import rules.public as rules
 import requirement.public as requirement
 import surface.public as surface
 import concept_edge.public as concept_edge
@@ -33,6 +34,8 @@ Check = readme_api.Check
 Sum = sum_type.Sum
 Variant = sum_type.Variant
 Split = sum_type.Split
+RuleId = rules.RuleId
+List = rules.List
 Ablate = readme_api.Ablate
 Requirement = requirement.Requirement
 MissingRequirement = requirement.MissingRequirement
