@@ -4,7 +4,7 @@
 
 删除不该靠手感，要靠图：从根文档的 public 出发做可达性，够不到的就是孤立物。删之前它只是可疑，删之后图不对了，问题立刻看得见——闭包是最便宜的检验手段。
 
-示例：入口从「整份 README」收紧到「README 的 public」之后，可达定义从 240 个降到 49 个，文档从 12 份减到 8 份；再按提示补回缺的边，稳定在 11 份。它也会暴露错删：`SampleConfigBase` 被删掉那次，不是闭包算错，而是 `RunSpec.$config` 那条边没连上。非文档文件同样适用：被 public 够不到的 102 个文件一次性删掉。根 README 从这里取 `Closure`、`Orphan`、`Reach` 与 `Prune`，所以这篇有 public。
+示例：入口从「整份 README」收紧到「README 的 public」之后，可达定义从 240 个降到 49 个，文档从 12 份减到 8 份；再按提示补回缺的边，稳定在 11 份。它也会暴露错删：`SampleConfigBase` 被删掉那次，不是闭包算错，而是 `RunSpec.$config` 那条边没连上。非文档文件同样适用：被 public 够不到的 102 个文件一次性删掉。根 README 从这里取 `Closure`、`Unreachable`、`Reach` 与 `Prune`，所以这篇有 public。
 
 ## public.viba
 
@@ -13,7 +13,7 @@ import closure.types as closure
 import closure.apis as closure_api
 
 Closure = closure.Closure
-Orphan = closure.Orphan
+Unreachable = closure.Unreachable
 Reach = closure_api.Reach
 Prune = closure_api.Prune
 ```
@@ -27,9 +27,9 @@ Closure =
   Object
   * $root (str * { 入口：根文档的 public，例如 README.public })
   * $reached (list[str] * { 走到的名字，按模块分组 })
-  * $orphans (list[Orphan] * { 没走到的名字；空列表表示这张图是连通的 })
+  * $orphans (list[Unreachable] * { 没走到的名字；空列表表示这张图是连通的 })
 
-Orphan =
+Unreachable =
   Oneof
   | $definition (str * { 没走到的类型或操作：从定义处删掉 })
   | $document (str * { 整份文档都够不到：删文件与它的生成物 })
@@ -56,7 +56,7 @@ Reach =
   }
 
 Prune =
-     list[closure.Orphan]
+     list[closure.Unreachable]
   <- $closure (closure.Closure * { 一次可达性计算的结果 })
   <- {
     删孤立：按种类删除，definition 与 document 删定义，file 删文件并清理空目录，reference 改说明；返回这一轮删掉的条目，删完再算一次可达

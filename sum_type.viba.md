@@ -4,7 +4,7 @@
 
 和类型不是标签集合。一个变体就是一种情况，变体自己带这种情况的数据；读的人按变体分支，不需要先读一个 kind 字段再猜剩下的字段是什么。它替代的是「记录 + 标签枚举」和继承层次：父类那套 is-a 的写法，在这里是一个和类型加若干个带载荷的变体。
 
-示例：`Orphan` 原先写成 `{ $name, $kind }` 加一个 `OrphanKind` 枚举，删一个孤立物要先读 kind 再决定怎么删；改成四个变体之后，`$definition(str)`、`$document(str)`、`$file(str)`、`$reference(str)` 各自带自己的载荷，枚举消失。同样的改法还落在 `Cycle`、`Artifact`、`Hint`、`Reference` 上，`Violation` 的十个变体也各带自己那条违规的证据类型，`Violation` 的 `$principle`、`$where`、`$what` 三个字段随之删掉。根 README 从这里取 `Sum`、`Variant` 与 `Split`，所以这篇有 public。
+示例：`Unreachable` 原先写成 `{ $name, $kind }` 加一个 `OrphanKind` 枚举，删一个孤立物要先读 kind 再决定怎么删；改成四个变体之后，`$definition(str)`、`$document(str)`、`$file(str)`、`$reference(str)` 各自带自己的载荷，枚举消失。同样的改法还落在 `CyclicDependency`、`Artifact`、`Hint`、`Reference` 上，`Violation` 的十个变体也各带自己那条违规的证据类型，`Violation` 的 `$principle`、`$where`、`$what` 三个字段随之删掉。根 README 从这里取 `Sum`、`Variant` 与 `Split`，所以这篇有 public。
 
 ## public.viba
 
@@ -24,7 +24,7 @@ Split = sum_type_api.Split
 ```bash types
 Sum =
   Object
-  * $name (str * { 和类型的名字，例如 Orphan })
+  * $name (str * { 和类型的名字，例如 Unreachable })
   * $variants (list[Variant] * { 全部变体；一个变体就是一种情况 })
 
 Variant =

@@ -35,16 +35,16 @@ Variant = sum_type.Variant
 Split = sum_type.Split
 Ablate = readme_api.Ablate
 Requirement = requirement.Requirement
-Gap = requirement.Gap
+MissingRequirement = requirement.MissingRequirement
 Surface = surface.Surface
-Leak = surface.Leak
+PublicLeak = surface.PublicLeak
 Reference = concept_edge.Reference
 Closure = closure.Closure
-Cycle = cycle.Cycle
+CyclicDependency = cycle.CyclicDependency
 NameTriple = naming.NameTriple
 Polarity = naming.Polarity
 Hint = hint.Hint
-Inline = hint.Inline
+MalformedHint = hint.MalformedHint
 Artifact = design_phase.Artifact
 CheckResult = workflow.CheckResult
 CheckEdges = concept_edge.CheckEdges
@@ -73,13 +73,13 @@ import workflow.public as workflow
 
 Violation =
   Oneof
-  | $missing_requirement (requirement.Gap * { 先写需求：public 名字讲不出由来时，载荷是这个缺口 })
-  | $public_leak (surface.Leak * { 外部只认 public：import 绕过 public 时，载荷是这条泄漏 })
+  | $missing_requirement (requirement.MissingRequirement * { 先写需求：public 名字讲不出由来时，载荷是这个缺口 })
+  | $public_leak (surface.PublicLeak * { 外部只认 public：import 绕过 public 时，载荷是这条泄漏 })
   | $virtual_reference (concept_edge.Reference * { 概念要用类型连边：说明里提到不算依赖，载荷是这条虚引用 })
-  | $unreachable (closure.Orphan * { 用闭包检验模型：从根 public 出发够不到时，载荷是这个孤立物 })
-  | $cyclic_dependency (cycle.Cycle * { 拆环：递归定义或函数归属不清时，载荷是带节点的环 })
-  | $name_mismatch (naming.Mismatch * { 文件名、需求背景、public 对不上时，载荷是这处差异 })
-  | $malformed_hint (hint.Inline * { 提示写清服务关系、依赖参数放在提示之后；不合时，载荷是这条提示 })
+  | $unreachable (closure.Unreachable * { 用闭包检验模型：从根 public 出发够不到时，载荷是这个孤立物 })
+  | $cyclic_dependency (cycle.CyclicDependency * { 拆环：递归定义或函数归属不清时，载荷是带节点的环 })
+  | $name_mismatch (naming.NameMismatch * { 文件名、需求背景、public 对不上时，载荷是这处差异 })
+  | $malformed_hint (hint.MalformedHint * { 提示写清服务关系、依赖参数放在提示之后；不合时，载荷是这条提示 })
   | $dead_artifact (design_phase.Verdict * { 设计阶段只留规范：该删的文件，载荷是这个判断 })
   | $failed_step (workflow.CheckResult * { 每步都要能被验证：某一步没通过时，载荷是这一步的结果 })
   | $root_background_changed (requirement.Background * { 铁律：根文档的需求背景不得随意更改；被改动时，载荷是冻结时与现在的两句 })
@@ -128,10 +128,10 @@ Check =
   <- $diagnose (cycle.Diagnose * { 判环：它交回环的种类，文档级依赖图有环时记成一条 cyclic_dependency })
   <- $names (naming.CheckName * { 查命名：它交回的差异写成一条 name_mismatch })
   <- $judge (design_phase.Judge * { 判文件：它交回的保留或删除理由写成一条 dead_artifact })
-  <- $requirement_check (requirement.Check * { 查需求：它交回的 Gap 写成一条 missing_requirement })
-  <- $surface_check (surface.Check * { 查边界：它交回的 Leak 写成一条 public_leak })
+  <- $requirement_check (requirement.Check * { 查需求：它交回的 MissingRequirement 写成一条 missing_requirement })
+  <- $surface_check (surface.Check * { 查边界：它交回的 PublicLeak 写成一条 public_leak })
   <- $edge_check (concept_edge.CheckEdges * { 查概念边：它交回的虚边写成一条 virtual_reference })
-  <- $hint_check (hint.Check * { 查提示：它交回的 Inline 写成一条 malformed_hint })
+  <- $hint_check (hint.Check * { 查提示：它交回的 MalformedHint 写成一条 malformed_hint })
   <- $frozen_check (requirement.CheckFrozen * { 查冻结：它交回的 Background 写成一条 root_background_changed })
 
 Ablate =

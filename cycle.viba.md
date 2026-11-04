@@ -4,7 +4,7 @@
 
 环是两张面孔：递归定义，和函数归属不明。类型递归是模型本来的样子，用泛型把自引用折起来；函数造成的环几乎都说明这个函数放错了模块，先问它到底服务于谁。
 
-示例：sample 与 performance 互相依赖——sample 的 `Artifacts` 放 `CkptSli`，performance 的 `Measure` 参数是 `RunRecord`。这不是类型递归，是 `Measure` 的归属不清：它填的是 `Artifacts.metrics`，于是跟着记录走，移到 sample 之后环消失，performance 只剩指标类型与判定。根 README 从这里取 `Cycle` 与 `Diagnose`，所以这篇有 public。
+示例：sample 与 performance 互相依赖——sample 的 `Artifacts` 放 `CkptSli`，performance 的 `Measure` 参数是 `RunRecord`。这不是类型递归，是 `Measure` 的归属不清：它填的是 `Artifacts.metrics`，于是跟着记录走，移到 sample 之后环消失，performance 只剩指标类型与判定。根 README 从这里取 `CyclicDependency` 与 `Diagnose`，所以这篇有 public。
 
 ## public.viba
 
@@ -12,7 +12,7 @@
 import cycle.types as cycle
 import cycle.apis as cycle_api
 
-Cycle = cycle.Cycle
+CyclicDependency = cycle.CyclicDependency
 Diagnose = cycle_api.Diagnose
 ```
 
@@ -21,7 +21,7 @@ Diagnose = cycle_api.Diagnose
 一个环先分种类，再决定拆法。递归定义靠泛型，函数造成的环靠重新组织模块；分不清种类时，先问「这个函数填的是谁的数据」。
 
 ```bash types
-Cycle =
+CyclicDependency =
   Oneof
   | $recursive_definition (list[str] * { 环上的模块或文档，按顺序；类型引用自己，用泛型把自引用折起来 })
   | $unclear_ownership (list[str] * { 环上的模块或文档，按顺序；函数用了别的模块的类型，把它移到它服务的模块 })
@@ -38,7 +38,7 @@ Cycle =
 import cycle.types as cycle
 
 Diagnose =
-     cycle.Cycle
+     cycle.CyclicDependency
   <- $nodes (list[str] * { 环上的模块或文档，按顺序 })
   <- {
     判环：类型自引用判 recursive_definition，函数与使用方互指判 unclear_ownership，两边同时缺一块判 common_parent；返回带节点的环
