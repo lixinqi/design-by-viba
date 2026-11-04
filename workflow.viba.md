@@ -4,7 +4,7 @@
 
 删改之后不能只看一眼就提交：要重新加载文档、跑一次闭包、检查环、搜旧名字。每一步都要有能被重复执行的判据，否则下一次改动又会把今天理清的关系搅乱。
 
-示例：每次改名后全仓搜旧名（`ckpt_sample`、`checkpoint.`、`Methodology`）确认为 0；每次删改后把生成器临时放回来跑一遍，79 份 schema 生成无误再删掉；提交信息里写清这一步用哪条规则判的，例如「Rename the sample and bypass-plan docs」。
+示例：每次改名后全仓搜旧名（`ckpt_sample`、`checkpoint.`、`Methodology`）确认为 0；每次删改后把生成器临时放回来跑一遍，79 份 schema 生成无误再删掉；提交信息里写清这一步用哪条规则判的，例如「Rename the sample and bypass-plan docs」。根 README 从这里取 `CheckResult` 与 `Run`，所以这篇有 public。
 
 ## public.viba
 

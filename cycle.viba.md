@@ -4,7 +4,7 @@
 
 环是两张面孔：递归定义，和函数归属不明。类型递归是模型本来的样子，用泛型把自引用折起来；函数造成的环几乎都说明这个函数放错了模块，先问它到底服务于谁。
 
-示例：sample 与 performance 互相依赖——sample 的 `Artifacts` 放 `CkptSli`，performance 的 `Measure` 参数是 `RunRecord`。这不是类型递归，是 `Measure` 的归属不清：它填的是 `Artifacts.metrics`，于是跟着记录走，移到 sample 之后环消失，performance 只剩指标类型与判定。
+示例：sample 与 performance 互相依赖——sample 的 `Artifacts` 放 `CkptSli`，performance 的 `Measure` 参数是 `RunRecord`。这不是类型递归，是 `Measure` 的归属不清：它填的是 `Artifacts.metrics`，于是跟着记录走，移到 sample 之后环消失，performance 只剩指标类型与判定。根 README 从这里取 `Cycle` 与 `Diagnose`，所以这篇有 public。
 
 ## public.viba
 
