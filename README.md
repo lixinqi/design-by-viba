@@ -15,7 +15,7 @@
 
 | 文档 | 主题 |
 |---|---|
-| [`rules.viba.md`](rules.viba.md) | 规则集：42 条规则，每条一个类型 |
+| [`rules.viba.md`](rules.viba.md) | 规则集：53 条规则，每条一个类型 |
 | [`requirement.viba.md`](requirement.viba.md) | 需求先行；根文档需求背景的冻结文本 |
 | [`surface.viba.md`](surface.viba.md) | 外部只依赖 public |
 | [`concept_edge.viba.md`](concept_edge.viba.md) | 概念用类型连边，说明里提到不算依赖 |
@@ -58,4 +58,4 @@ ReadmeBackgroundFrozen =
 
 ## 当前规模
 
-文档 11 份，定义 104 个；从根 public 出发的闭包没有孤立定义，文档级依赖图无环。
+文档 11 份，定义 115 个；从根 public 出发的闭包没有孤立定义，文档级依赖图无环。
