@@ -22,16 +22,11 @@ Judge = design_phase_api.Judge
 
 ```bash types
 Artifact =
-  Object
-  * $path (str * { 文件路径 })
-  * $kind (ArtifactKind * { 它是哪一类 })
-
-ArtifactKind =
   Oneof
-  | "spec" * { 文档：类型与操作的出处，可能被 public 依赖 }
-  | "generated" * { 从规范生成的产物，例如 JSON Schema；规范删了它就是陈旧数据 }
-  | "tooling" * { 脚本与依赖清单；设计阶段没有实现可跑，它们只在需要验证时临时出现 }
-  | "sample_data" * { 样例数据与配方配置；没有文档引用就是死数据 }
+  | $spec (str * { 文档路径：类型与操作的出处，可能被 public 依赖 })
+  | $generated (str * { 生成物路径：例如 JSON Schema；规范删了它就是陈旧数据 })
+  | $tooling (str * { 脚本与依赖清单的路径；设计阶段没有实现可跑，只在验证时临时出现 })
+  | $sample_data (str * { 样例数据与配方配置的路径；没有文档引用就是死数据 })
 
 Verdict =
   Object

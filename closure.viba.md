@@ -29,16 +29,11 @@ Closure =
   * $orphans (list[Orphan] * { 没走到的名字；空列表表示这张图是连通的 })
 
 Orphan =
-  Object
-  * $name (str * { 没走到的名字或文件 })
-  * $kind (OrphanKind * { 它是什么，决定怎么删 })
-
-OrphanKind =
   Oneof
-  | "definition" * { 类型或操作；从定义处删掉 }
-  | "document" * { 整份文档都没有可达的定义；删文件与它的生成物 }
-  | "file" * { 文档之外的文件；删掉，并清理空目录 }
-  | "reference" * { 说明文字里指向已删名字的引用；改成描述或删掉 }
+  | $definition (str * { 没走到的类型或操作：从定义处删掉 })
+  | $document (str * { 整份文档都够不到：删文件与它的生成物 })
+  | $file (str * { 文档之外的文件：删掉并清理空目录 })
+  | $reference (str * { 说明文字里指向已删名字的引用：改成描述或删掉 })
 ```
 
 ## 基本操作

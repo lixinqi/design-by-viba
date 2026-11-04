@@ -22,15 +22,10 @@ Diagnose = cycle_api.Diagnose
 
 ```bash types
 Cycle =
-  Object
-  * $nodes (list[str] * { 环上的模块或文档，按顺序 })
-  * $kind (CycleKind * { 环的成因，决定拆法 })
-
-CycleKind =
   Oneof
-  | "recursive_definition" * { 类型引用自己形成环；用泛型把自引用折起来 }
-  | "unclear_ownership" * { 函数用了别的模块的类型，而别的模块又用了它；把这个函数移到它服务的模块 }
-  | "common_parent" * { 两边都缺同一块东西；抽出公共子模块，谁都不再指向对方 }
+  | $recursive_definition (list[str] * { 环上的模块或文档，按顺序；类型引用自己，用泛型把自引用折起来 })
+  | $unclear_ownership (list[str] * { 环上的模块或文档，按顺序；函数用了别的模块的类型，把它移到它服务的模块 })
+  | $common_parent (list[str] * { 环上的模块或文档，按顺序；两边都缺同一块东西，抽出公共子模块 })
 ```
 
 ## 基本操作
@@ -43,9 +38,9 @@ CycleKind =
 import cycle.types as cycle
 
 Diagnose =
-     cycle.CycleKind
+     cycle.Cycle
   <- $nodes (list[str] * { 环上的模块或文档，按顺序 })
   <- {
-    判环：类型自引用判 recursive_definition，函数与使用方互指判 unclear_ownership，两边同时缺一块判 common_parent；返回该用的拆法
+    判环：类型自引用判 recursive_definition，函数与使用方互指判 unclear_ownership，两边同时缺一块判 common_parent；返回带节点的环
   }
 ```

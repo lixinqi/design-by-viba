@@ -21,16 +21,15 @@ CheckEdges = concept_edge_api.CheckEdges
 两条定义之间的关系只有两种情况：真边（闭包认）与只在说明里提到（闭包不认）。把两者分开记，才能一眼看出哪些边是虚的。
 
 ```bash types
-Reference =
+Edge =
   Object
   * $from (str * { 引用方，写成模块.名字 })
   * $to (str * { 被引用的名字 })
-  * $kind (EdgeKind * { 这条边是不是真边 })
 
-EdgeKind =
+Reference =
   Oneof
-  | "reference" * { 出现在字段类型或参数类型里；闭包认它 }
-  | "mention" * { 只出现在说明文字里；闭包不认，等于没有这条边 }
+  | $real (Edge * { 出现在字段类型或参数类型里；闭包认它 })
+  | $mention (Edge * { 只出现在说明文字里；闭包不认，等于没有这条边 })
 ```
 
 ## 基本操作
@@ -46,6 +45,6 @@ CheckEdges =
      list[concept_edge.Reference]
   <- $references (list[concept_edge.Reference] * { 从文档里抽出来的候选引用 })
   <- {
-    查边：kind 为 mention 的都是虚边——要么把它改成字段类型或参数类型里的引用，要么删掉说明里的名字；返回需要处理的引用
+    查边：mention 分支都是虚边——要么把它改成字段类型或参数类型里的引用，要么删掉说明里的名字；返回需要处理的引用
   }
 ```
