@@ -77,12 +77,16 @@ Rule =
   | $no_time_bound_content (NoTimeBoundContent * { 不写“今天”“本次”“当前对话”，只写适用条件 })
   | $small_functions (SmallFunctions * { 函数短，圈复杂度受控，短 if 也计入 })
 
+  | $rule_has_examples (RuleHasExamples * { 每条规则必须有正例与反例 })
+
 ReadmeBackgroundFrozen =
   Object
   * $statement (str * { README 需求背景冻结，新经验写进别的文档 })
   * $evidence (str * { 原话：一定要冻结，不能改 })
   * $check (str * { 与冻结文本逐字比对 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/ReadmeBackgroundFrozen/positive }
+  * { 反例见 examples/ReadmeBackgroundFrozen/negative }
 
 ExternalOnlyPublic =
   Object
@@ -90,6 +94,8 @@ ExternalOnlyPublic =
   * $evidence (str * { 原话：外部只能依赖 public })
   * $check (str * { 跨文档 import 以 .public 结尾 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/ExternalOnlyPublic/positive }
+  * { 反例见 examples/ExternalOnlyPublic/negative }
 
 FiveSections =
   Object
@@ -97,6 +103,8 @@ FiveSections =
   * $evidence (str * { 原话：必须有 public/types/apis 等章节 })
   * $check (str * { 抽 ## 章节比对 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/FiveSections/positive }
+  * { 反例见 examples/FiveSections/negative }
 
 BackgroundStatesInputAndOps =
   Object
@@ -104,6 +112,8 @@ BackgroundStatesInputAndOps =
   * $evidence (str * { 原话：总输入应是 repo_path；操作两类 })
   * $check (str * { 背景能抄出输入与操作 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/BackgroundStatesInputAndOps/positive }
+  * { 反例见 examples/BackgroundStatesInputAndOps/negative }
 
 RootApiIsRealOperation =
   Object
@@ -111,6 +121,8 @@ RootApiIsRealOperation =
   * $evidence (str * { 原话：对外 api 竟然只是 read })
   * $check (str * { 根 public 操作能独立执行并产出结果 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/RootApiIsRealOperation/positive }
+  * { 反例见 examples/RootApiIsRealOperation/negative }
 
 ExplicitDependencies =
   Object
@@ -118,6 +130,8 @@ ExplicitDependencies =
   * $evidence (str * { 原话：A <- B <- {...} <- FooBar })
   * $check (str * { 签名里有对应依赖参数 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/ExplicitDependencies/positive }
+  * { 反例见 examples/ExplicitDependencies/negative }
 
 DependenciesAfterHint =
   Object
@@ -125,6 +139,8 @@ DependenciesAfterHint =
   * $evidence (str * { 原话：小 api 要放到 HINT 之后 })
   * $check (str * { 提示块前的参数不含 _api. })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/DependenciesAfterHint/positive }
+  * { 反例见 examples/DependenciesAfterHint/negative }
 
 DepTagAndApiType =
   Object
@@ -132,6 +148,8 @@ DepTagAndApiType =
   * $evidence (str * { 原话：给 Measure 带个展位的 tag })
   * $check (str * { 匹配 <- $tag (X.Api * {...}) })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/DepTagAndApiType/positive }
+  * { 反例见 examples/DepTagAndApiType/negative }
 
 DepHintExplainsService =
   Object
@@ -139,6 +157,8 @@ DepHintExplainsService =
   * $evidence (str * { 原话：这一句话有点像废话 })
   * $check (str * { 提示含返回与用途，无“依赖 X：” })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/DepHintExplainsService/positive }
+  * { 反例见 examples/DepHintExplainsService/negative }
 
 HintFolded =
   Object
@@ -146,6 +166,8 @@ HintFolded =
   * $evidence (str * { 原话：无论长短都要折行 })
   * $check (str * { 正则 ^  <- \{ .+ \}$ })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/HintFolded/positive }
+  * { 反例见 examples/HintFolded/negative }
 
 OrphanIsUnreachable =
   Object
@@ -153,6 +175,8 @@ OrphanIsUnreachable =
   * $evidence (str * { 原话：只要没人使用就是孤立 })
   * $check (str * { 从根 public BFS 差集 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/OrphanIsUnreachable/positive }
+  * { 反例见 examples/OrphanIsUnreachable/negative }
 
 DeleteAllFileKinds =
   Object
@@ -160,6 +184,8 @@ DeleteAllFileKinds =
   * $evidence (str * { 原话：不限于 python 文件 })
   * $check (str * { 每类文件回答谁依赖它 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/DeleteAllFileKinds/positive }
+  * { 反例见 examples/DeleteAllFileKinds/negative }
 
 GeneratedFollowsSource =
   Object
@@ -167,6 +193,8 @@ GeneratedFollowsSource =
   * $evidence (str * { 原话：json_schema 重新生成了吗 })
   * $check (str * { 定义集合-函数=应有 schema })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/GeneratedFollowsSource/positive }
+  * { 反例见 examples/GeneratedFollowsSource/negative }
 
 SumWithPayload =
   Object
@@ -174,6 +202,8 @@ SumWithPayload =
   * $evidence (str * { 原话：这个错大发了 })
   * $check (str * { 遍历 Oneof，看变体有无载荷 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/SumWithPayload/positive }
+  * { 反例见 examples/SumWithPayload/negative }
 
 NoRecordPlusKind =
   Object
@@ -181,6 +211,8 @@ NoRecordPlusKind =
   * $evidence (str * { 原话：替代继承/Oneof })
   * $check (str * { 搜 $kind + 纯字符串枚举 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/NoRecordPlusKind/positive }
+  * { 反例见 examples/NoRecordPlusKind/negative }
 
 VariantNamesProblem =
   Object
@@ -188,6 +220,8 @@ VariantNamesProblem =
   * $evidence (str * { 原话：一个叫需求的 Rule })
   * $check (str * { 代入“这条报的是___” })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/VariantNamesProblem/positive }
+  * { 反例见 examples/VariantNamesProblem/negative }
 
 TypeNameSaysContent =
   Object
@@ -195,6 +229,8 @@ TypeNameSaysContent =
   * $evidence (str * { 原话：这哪是 Lesson 啊 })
   * $check (str * { 读类型名与变体是否同类 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/TypeNameSaysContent/positive }
+  * { 反例见 examples/TypeNameSaysContent/negative }
 
 PolarityConsistent =
   Object
@@ -202,6 +238,8 @@ PolarityConsistent =
   * $evidence (str * { 原话：否则要么都是负面的 })
   * $check (str * { 标 positive/negative 比对 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/PolarityConsistent/positive }
+  * { 反例见 examples/PolarityConsistent/negative }
 
 TagFormConsistent =
   Object
@@ -209,6 +247,8 @@ TagFormConsistent =
   * $evidence (str * { 原话：inline_hint 只是名词 })
   * $check (str * { 逐标签归三类 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/TagFormConsistent/positive }
+  * { 反例见 examples/TagFormConsistent/negative }
 
 PayloadFormConsistent =
   Object
@@ -216,6 +256,8 @@ PayloadFormConsistent =
   * $evidence (str * { 原话：不只是 tag })
   * $check (str * { 逐 <tag,payload> 比对 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/PayloadFormConsistent/positive }
+  * { 反例见 examples/PayloadFormConsistent/negative }
 
 NameTripleConsistent =
   Object
@@ -223,6 +265,8 @@ NameTripleConsistent =
   * $evidence (str * { 原话：信息量一定要一致 })
   * $check (str * { 文件名关键词∈背景；public=背景声明 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/NameTripleConsistent/positive }
+  * { 反例见 examples/NameTripleConsistent/negative }
 
 PublicCoversChain =
   Object
@@ -230,6 +274,8 @@ PublicCoversChain =
   * $evidence (str * { 原话：怎么构建一条样本 })
   * $check (str * { 需求操作逐个查可达 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/PublicCoversChain/positive }
+  * { 反例见 examples/PublicCoversChain/negative }
 
 VirtualEdgeBeforeDelete =
   Object
@@ -237,6 +283,8 @@ VirtualEdgeBeforeDelete =
   * $evidence (str * { 原话：想想概念之间的引用关系 })
   * $check (str * { mention vs reference 清单 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/VirtualEdgeBeforeDelete/positive }
+  * { 反例见 examples/VirtualEdgeBeforeDelete/negative }
 
 FixWholeClass =
   Object
@@ -244,6 +292,8 @@ FixWholeClass =
   * $evidence (str * { 原话：不能我说一句你只做一句 })
   * $check (str * { 列同类命中并逐项勾销 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/FixWholeClass/positive }
+  * { 反例见 examples/FixWholeClass/negative }
 
 RenameIsSemantic =
   Object
@@ -251,6 +301,8 @@ RenameIsSemantic =
   * $evidence (str * { 原话：就改了个名字 })
   * $check (str * { 改名后问形态/载荷/引用 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/RenameIsSemantic/positive }
+  * { 反例见 examples/RenameIsSemantic/negative }
 
 BackgroundNamesPublic =
   Object
@@ -258,6 +310,8 @@ BackgroundNamesPublic =
   * $evidence (str * { 九篇都补过这句 })
   * $check (str * { 背景清单=public 导出行 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/BackgroundNamesPublic/positive }
+  * { 反例见 examples/BackgroundNamesPublic/negative }
 
 InnerSumForFailures =
   Object
@@ -265,6 +319,8 @@ InnerSumForFailures =
   * $evidence (str * { 点赞 Mismatch })
   * $check (str * { 外层变体数不变、内层增加 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/InnerSumForFailures/positive }
+  * { 反例见 examples/InnerSumForFailures/negative }
 
 PrincipleIntoKb =
   Object
@@ -272,6 +328,8 @@ PrincipleIntoKb =
   * $evidence (str * { 原话：显然要写到 design-by-viba })
   * $check (str * { 知识库有篇讲它并带本次例子 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/PrincipleIntoKb/positive }
+  * { 反例见 examples/PrincipleIntoKb/negative }
 
 SixChecksPerRound =
   Object
@@ -279,6 +337,8 @@ SixChecksPerRound =
   * $evidence (str * { goal 要求反复审查 })
   * $check (str * { 贴六项数字 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/SixChecksPerRound/positive }
+  * { 反例见 examples/SixChecksPerRound/negative }
 
 VerifiedBeforeDone =
   Object
@@ -286,6 +346,8 @@ VerifiedBeforeDone =
   * $evidence (str * { 原话：json_schema 重新生成了吗 })
   * $check (str * { 完成附命令与输出 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/VerifiedBeforeDone/positive }
+  * { 反例见 examples/VerifiedBeforeDone/negative }
 
 GraphBeforeDelete =
   Object
@@ -293,6 +355,8 @@ GraphBeforeDelete =
   * $evidence (str * { SampleConfigBase 被误删 })
   * $check (str * { 删前查虚边再删 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/GraphBeforeDelete/positive }
+  * { 反例见 examples/GraphBeforeDelete/negative }
 
 HintAddsInformation =
   Object
@@ -300,6 +364,8 @@ HintAddsInformation =
   * $evidence (str * { 原话：有点像废话 })
   * $check (str * { 删掉说明问信息量 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/HintAddsInformation/positive }
+  * { 反例见 examples/HintAddsInformation/negative }
 
 ViolationAttribution =
   Object
@@ -307,6 +373,8 @@ ViolationAttribution =
   * $evidence (str * { 原话：清晰指出违反原则 })
   * $check (str * { 违规要归因到规则、位置与内容 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/ViolationAttribution/positive }
+  * { 反例见 examples/ViolationAttribution/negative }
 
 RuleBeforeAction =
   Object
@@ -314,6 +382,8 @@ RuleBeforeAction =
   * $evidence (str * { 先有规则才有后续删除 })
   * $check (str * { 动作前有可复核判据 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/RuleBeforeAction/positive }
+  * { 反例见 examples/RuleBeforeAction/negative }
 
 FixedStructure =
   Object
@@ -321,6 +391,8 @@ FixedStructure =
   * $evidence (str * { 五段+唯一根 })
   * $check (str * { 结构检查 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/FixedStructure/positive }
+  * { 反例见 examples/FixedStructure/negative }
 
 InterfaceAnswersNeed =
   Object
@@ -328,6 +400,8 @@ InterfaceAnswersNeed =
   * $evidence (str * { Read 被否定 })
   * $check (str * { 接口对应输入与操作 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/InterfaceAnswersNeed/positive }
+  * { 反例见 examples/InterfaceAnswersNeed/negative }
 
 DesignPhaseSpecOnly =
   Object
@@ -335,6 +409,8 @@ DesignPhaseSpecOnly =
   * $evidence (str * { 删代码/生成物/样例 })
   * $check (str * { 可达性判据 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/DesignPhaseSpecOnly/positive }
+  * { 反例见 examples/DesignPhaseSpecOnly/negative }
 
 PureEnumAllowed =
   Object
@@ -342,6 +418,8 @@ PureEnumAllowed =
   * $evidence (str * { 没有数据的取值没有被纠正过 })
   * $check (str * { 检查变体是否本应有数据 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/PureEnumAllowed/positive }
+  * { 反例见 examples/PureEnumAllowed/negative }
 
 DefineNewWords =
   Object
@@ -349,6 +427,8 @@ DefineNewWords =
   * $evidence (str * { AGENTS.md 禁词规定 })
   * $check (str * { 生僻词同段有定义 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/DefineNewWords/positive }
+  * { 反例见 examples/DefineNewWords/negative }
 
 ScoldingIsRequirement =
   Object
@@ -356,6 +436,8 @@ ScoldingIsRequirement =
   * $evidence (str * { 这句话本身也是经验 })
   * $check (str * { 复盘含原话与规则 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/ScoldingIsRequirement/positive }
+  * { 反例见 examples/ScoldingIsRequirement/negative }
 
 PublicOnlyOwnNames =
   Object
@@ -363,6 +445,8 @@ PublicOnlyOwnNames =
   * $evidence (str * { 这也是规则 })
   * $check (str * { 每个导出行的来源模块都属于本文档 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/PublicOnlyOwnNames/positive }
+  * { 反例见 examples/PublicOnlyOwnNames/negative }
 
 TextReviewedBySubagent =
   Object
@@ -370,6 +454,8 @@ TextReviewedBySubagent =
   * $evidence (str * { 这条规则也是铁律 })
   * $check (str * { 交付前有审查记录，覆盖口语、术语、拗口 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/TextReviewedBySubagent/positive }
+  * { 反例见 examples/TextReviewedBySubagent/negative }
 
 
 ChangeBoundary =
@@ -378,6 +464,8 @@ ChangeBoundary =
   * $evidence (str * { 三方评审一致：没有边界感与超出任务范围同源 })
   * $check (str * { 对照任务范围与改动清单，越界项未获确认即违规 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/ChangeBoundary/positive }
+  * { 反例见 examples/ChangeBoundary/negative }
 
 TargetBeforeEdit =
   Object
@@ -385,6 +473,8 @@ TargetBeforeEdit =
   * $evidence (str * { 改错文件不会被任何现有检查发现 })
   * $check (str * { 改前列出目标路径并确认唯一，改后 diff 逐文件核对 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/TargetBeforeEdit/positive }
+  * { 反例见 examples/TargetBeforeEdit/negative }
 
 FunctionScope =
   Object
@@ -392,6 +482,8 @@ FunctionScope =
   * $evidence (str * { 依赖规则只约束调用写法，不约束函数掌握的知识 })
   * $check (str * { 检查函数体是否使用了参数与返回值之外的状态或约定 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/FunctionScope/positive }
+  * { 反例见 examples/FunctionScope/negative }
 
 ThirdPersonReadable =
   Object
@@ -399,6 +491,8 @@ ThirdPersonReadable =
   * $evidence (str * { 自造词规则只管生词，不管对读者的假设 })
   * $check (str * { 把文档交给未参与对话的读者，术语与指代必须能读懂 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/ThirdPersonReadable/positive }
+  * { 反例见 examples/ThirdPersonReadable/negative }
 
 NoChangeLog =
   Object
@@ -406,6 +500,8 @@ NoChangeLog =
   * $evidence (str * { 说明信息量规则管不到整篇写成变更史 })
   * $check (str * { 搜索“本次”“改为”“新增”这类变更叙述，出现在正文即违规 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/NoChangeLog/positive }
+  * { 反例见 examples/NoChangeLog/negative }
 
 SectionMatchesHeading =
   Object
@@ -413,6 +509,8 @@ SectionMatchesHeading =
   * $evidence (str * { 结构规则只查章节名与顺序，不查内容是否对题 })
   * $check (str * { 逐节读首句与末句，是否在回答本节标题 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/SectionMatchesHeading/positive }
+  * { 反例见 examples/SectionMatchesHeading/negative }
 
 DocsNameOnlyPublic =
   Object
@@ -420,6 +518,8 @@ DocsNameOnlyPublic =
   * $evidence (str * { 外部只依赖 public 管 import，管不到正文提到内部 api })
   * $check (str * { 扫描文档正文中出现的名字，是否都能在目标文档的 public 找到 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/DocsNameOnlyPublic/positive }
+  * { 反例见 examples/DocsNameOnlyPublic/negative }
 
 ExplainHardParts =
   Object
@@ -427,6 +527,8 @@ ExplainHardParts =
   * $evidence (str * { 现有规则没有铺垫或附录的要求 })
   * $check (str * { 找出首次出现的新概念，检查前文是否给出定义或例子 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/ExplainHardParts/positive }
+  * { 反例见 examples/ExplainHardParts/negative }
 
 PublicApiGeneral =
   Object
@@ -434,6 +536,8 @@ PublicApiGeneral =
   * $evidence (str * { 接口对得起需求只管方向，不管是否耦合内部 })
   * $check (str * { 检查 public api 的参数与返回是否引用了内部类型或内部约定 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/PublicApiGeneral/positive }
+  * { 反例见 examples/PublicApiGeneral/negative }
 
 NoTimeBoundContent =
   Object
@@ -441,6 +545,8 @@ NoTimeBoundContent =
   * $evidence (str * { 现有条款不管与时刻、受众耦合的内容 })
   * $check (str * { 搜索时间词与对话指代，命中即改为适用条件 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/NoTimeBoundContent/positive }
+  * { 反例见 examples/NoTimeBoundContent/negative }
 
 SmallFunctions =
   Object
@@ -448,6 +554,17 @@ SmallFunctions =
   * $evidence (str * { 规则集没有函数长度与圈复杂度的约束 })
   * $check (str * { 统计分支数与行数，超过阈值即违规 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/SmallFunctions/positive }
+  * { 反例见 examples/SmallFunctions/negative }
+
+RuleHasExamples =
+  Object
+  * $statement (str * { 每条规则必须有正例与反例 })
+  * $evidence (str * { 规则要有明确示例，这也是规则 })
+  * $check (str * { 检查每个规则类型是否带正例与反例的路径 })
+  * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+  * { 正例见 examples/RuleHasExamples/positive }
+  * { 反例见 examples/RuleHasExamples/negative }
 
 Finding =
   Object
