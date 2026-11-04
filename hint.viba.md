@@ -13,8 +13,6 @@ import hint.types as hint
 import hint.apis as hint_api
 
 Hint = hint.Hint
-HintForm = hint.HintForm
-DependencySlot = hint.DependencySlot
 Write = hint_api.Write
 ```
 

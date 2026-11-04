@@ -13,7 +13,6 @@ import naming.types as naming
 import naming.apis as naming_api
 
 NameTriple = naming.NameTriple
-Mismatch = naming.Mismatch
 CheckName = naming_api.CheckName
 ```
 

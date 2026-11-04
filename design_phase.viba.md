@@ -13,8 +13,6 @@ import design_phase.types as design_phase
 import design_phase.apis as design_phase_api
 
 Artifact = design_phase.Artifact
-ArtifactKind = design_phase.ArtifactKind
-Verdict = design_phase.Verdict
 Judge = design_phase_api.Judge
 ```
 

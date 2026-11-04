@@ -13,7 +13,6 @@ import cycle.types as cycle
 import cycle.apis as cycle_api
 
 Cycle = cycle.Cycle
-CycleKind = cycle.CycleKind
 Diagnose = cycle_api.Diagnose
 ```
 

@@ -12,8 +12,6 @@
 import workflow.types as workflow
 import workflow.apis as workflow_api
 
-Step = workflow.Step
-StepKind = workflow.StepKind
 CheckResult = workflow.CheckResult
 Run = workflow_api.Run
 ```
@@ -50,12 +48,14 @@ CheckResult =
 ## apis.viba
 
 ```bash apis
+import closure.public as closure
 import workflow.types as workflow
 
 Run =
-     list[workflow.CheckResult]
+     list[workflow.Step]
   <- $steps (list[workflow.StepKind] * { 这次要跑的检查，按顺序 })
   <- {
     跑一遍：逐步执行 edit、load、closure、cycle、stale_name 五项检查，全部通过才 commit；返回每一步的结果，失败时停在该步并写清证据
   }
+  <- $reach (closure.Reach * { 算可达：它交回走到的名字与没走到的名字，闭包这一步按它判过不过 })
 ```

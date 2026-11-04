@@ -13,8 +13,6 @@ import surface.types as surface
 import surface.apis as surface_api
 
 Surface = surface.Surface
-SurfaceEntry = surface.SurfaceEntry
-Visibility = surface.Visibility
 Export = surface_api.Export
 ```
 
@@ -32,6 +30,7 @@ SurfaceEntry =
   Object
   * $name (str * { 对外可见的名字 })
   * $home (str * { 这个名字定义在哪个内部模块，例如 sample.types })
+  * $visibility (Visibility * { 这条名字对外发布，还是只给本文档内部用 })
 
 Visibility =
   Oneof

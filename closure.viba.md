@@ -13,7 +13,6 @@ import closure.types as closure
 import closure.apis as closure_api
 
 Closure = closure.Closure
-Orphan = closure.Orphan
 Reach = closure_api.Reach
 Prune = closure_api.Prune
 ```

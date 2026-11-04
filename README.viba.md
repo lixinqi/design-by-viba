@@ -32,6 +32,16 @@ NameTriple = naming.NameTriple
 Hint = hint.Hint
 Artifact = design_phase.Artifact
 CheckResult = workflow.CheckResult
+State = requirement.State
+Export = surface.Export
+CheckEdges = concept_edge.CheckEdges
+Reach = closure.Reach
+Prune = closure.Prune
+Diagnose = cycle.Diagnose
+CheckName = naming.CheckName
+Write = hint.Write
+Judge = design_phase.Judge
+Run = workflow.Run
 ```
 
 ## types.viba
@@ -71,5 +81,7 @@ import readme.types as readme
 Read =
      readme.Reading
   <- $done (list[readme.Lesson] * { 已经读过的经验，按 Lesson 的顺序 })
-  <- { 读下一条：按 Lesson 的顺序交回还没读过的那一条；全部读完时 $next 给 nil，回到需求背景重新检查一遍 }
+  <- {
+    读下一条：按 Lesson 的顺序交回还没读过的那一条；全部读完时 $next 给 nil，回到需求背景重新检查一遍
+  }
 ```
