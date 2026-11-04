@@ -11,6 +11,7 @@ import rules.types as rules
 import rules.apis as rules_api
 
 Violation = rules.Violation
+Finding = rules.Finding
 CheckViolations = rules_api.CheckViolations
 ```
 
@@ -317,6 +318,17 @@ TextReviewedBySubagent =
   * $evidence (str * { 这条规则也是铁律 })
   * $check (str * { 交付前有审查记录，覆盖口语、术语、拗口 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
+Finding =
+  Object
+  * $rule (Violation * { 违反的是哪一条规则 })
+  * $where (Position * { 在哪个文件的哪一行、哪个名字 })
+  * $evidence (str * { 查到的具体内容 })
+
+Position =
+  Object
+  * $doc (str * { 文件路径 })
+  * $line (int * { 行号 })
+  * $name (str * { 名字或章节 })
 ```
 
 ## 基本操作
@@ -329,10 +341,10 @@ TextReviewedBySubagent =
 import rules.types as rules
 
 CheckViolations =
-     list[rules.Violation]
+     list[rules.Finding]
   <- $repo (str * { 仓库路径：里面是一组 .viba.md 文档 })
   <- $rules (list[rules.Violation] * { 这次要执行的规则；从规则集里取 })
   <- {
-    按规则检查：对每条规则执行它的 $check，不符合的记成一条违规并附上位置与证据；返回违规清单
+    按规则检查：对每条规则执行它的 $check，不符合的记成一条 Finding，带上规则、位置与证据；返回违规清单
   }
 ```
