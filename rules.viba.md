@@ -2,7 +2,7 @@
 
 ## 需求背景
 
-规则与违规是同一种东西：一条规则被违反就是一条违规，所以只保留一个和类型 `Violation`，它的每个变体就是一条规则，变体自己带一个叶子类型，叶子类型里写清这条规则的判定标准。规则不能再写成一句话挂在提示里，每条规则必须有独立的类型，类型里有依据、检查方法与判定方式。示例：`root_background_changed` 与旧规则集里的 `readme_background_frozen` 是同一条规则，合并后只剩 `readme_background_frozen` 一个变体；它带的 `ReadmeBackgroundFrozen` 里写着冻结文本与逐字比对的检查方法。根 README 的 `Check` 返回本类型的违规清单，所以这篇有 public。
+一条规则就是一个类型：规则集只保留一个和类型 `Rule`，它的每个变体就是一条规则，变体自己带一个叶子类型，叶子类型里写清这条规则的判定标准。规则被违反时，`CheckViolations` 交回 `Finding`（规则、位置、证据），而不是另造一个违规类型。规则不能再写成一句话挂在提示里，每条规则必须有独立的类型，类型里有依据、检查方法与判定方式。示例：旧规则集里叫 `root_background_changed` 的那条并进了 `readme_background_frozen`；它带的 `ReadmeBackgroundFrozen` 里写着冻结文本与逐字比对的检查方法。根 README 的 `Check` 依赖本篇的 `CheckViolations`，所以这篇有 public。
 
 ## public.viba
 
@@ -10,17 +10,17 @@
 import rules.types as rules
 import rules.apis as rules_api
 
-Violation = rules.Violation
 
+Finding = rules.Finding
 CheckViolations = rules_api.CheckViolations
 ```
 
 ## types.viba
 
-`Violation` 的每个变体对应一条规则，载荷是该规则自己的类型；每个叶子类型有四个字段：规则原文、依据、检查方法、判定方式。规则集把每条规则写成带载荷的变体。
+`Rule` 的每个变体对应一条规则，载荷是该规则自己的类型；每个叶子类型有四个字段：规则原文、依据、检查方法、判定方式。规则集把每条规则写成带载荷的变体。
 
 ```bash types
-Violation =
+Rule =
   Oneof
   | $readme_background_frozen (ReadmeBackgroundFrozen * { README 需求背景冻结，新经验写进别的文档 })
   | $external_only_public (ExternalOnlyPublic * { 外部只依赖 public，types/apis 是内部实现 })
@@ -294,7 +294,7 @@ ViolationAttribution =
   Object
   * $statement (str * { 违规要归因到原则+位置+内容 })
   * $evidence (str * { 原话：清晰指出违反原则 })
-  * $check (str * { Violation 三要素 })
+  * $check (str * { 违规要归因到规则、位置与内容 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
 
 RuleBeforeAction =
@@ -362,7 +362,7 @@ TextReviewedBySubagent =
 
 Finding =
   Object
-  * $rule (Violation * { 违反的是哪一条规则 })
+  * $rule (Rule * { 违反的是哪一条规则 })
   * $where (Position * { 在哪个文件的哪一行、哪个名字 })
   * $evidence (str * { 查到的具体内容 })
 
@@ -385,7 +385,7 @@ import rules.types as rules
 CheckViolations =
      list[rules.Finding]
   <- $repo (str * { 仓库路径：里面是一组 .viba.md 文档 })
-  <- $rules (list[rules.Violation] * { 这次要执行的规则；从规则集里取 })
+  <- $rules (list[rules.Rule] * { 这次要执行的规则；从规则集里取 })
   <- {
     按规则检查：对每条规则执行它的 $check，不符合的记成一条 Finding，带上规则、位置与证据；返回违规清单
   }

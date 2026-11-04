@@ -16,7 +16,6 @@
 import readme.types as readme
 import readme.apis as readme_api
 
-Violation = readme.Violation
 
 CheckReport = readme.CheckReport
 
@@ -37,7 +36,7 @@ import rules.public as rules
 
 CheckReport =
   Object
-  * $violations (list[rules.Violation] * { 查出来的全部违规；每个变体就是一条规则和它带的证据；空列表表示合规 })
+  * $violations (list[rules.Finding] * { 查出来的全部违规；每条带规则、位置与证据；空列表表示合规 })
   * $passed (bool * { 是否为真：没有违规即合规 })
 
 AblationReport =
