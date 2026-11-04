@@ -33,8 +33,8 @@ Requirement =
 Background =
   Object
   * $doc (str * { 哪份文档的需求背景 })
-  * $frozen (str * { 冻结时那句话；铁律要求它与现在一致 })
-  * $current (str * { 现在文件里的那句 })
+  * $frozen (str * { 冻结时的文本；铁律要求它与当前文本一致 })
+  * $current (str * { 当前文件里的文本 })
 
 MissingRequirement =
   Object
@@ -62,6 +62,6 @@ CheckFrozen =
      list[requirement.Background]
   <- $repo (str * { 仓库路径：里面是一组 .viba.md 文档 })
   <- {
-    查冻结：根文档的需求背景必须与冻结版逐字一致；不一致的记成 Background，带上冻结时与现在的两句
+    查冻结：根文档的需求背景必须与冻结文本逐字一致；不一致的记成 Background，带上冻结文本与当前文本
   }
 ```

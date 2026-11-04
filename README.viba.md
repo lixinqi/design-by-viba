@@ -85,7 +85,7 @@ Violation =
   | $malformed_hint (hint.MalformedHint * { 提示写清服务关系、依赖参数放在提示之后；不合时，载荷是这条提示 })
   | $dead_artifact (design_phase.Verdict * { 设计阶段只留规范：该删的文件，载荷是这个判断 })
   | $failed_step (workflow.CheckResult * { 每步都要能被验证：某一步没通过时，载荷是这一步的结果 })
-  | $root_background_changed (requirement.Background * { 铁律：根文档的需求背景不得随意更改；被改动时，载荷是冻结时与现在的两句 })
+  | $root_background_changed (requirement.Background * { 铁律：根文档的需求背景不得随意更改；改动时，载荷是冻结文本与当前文本 })
 
 CheckReport =
   Object
