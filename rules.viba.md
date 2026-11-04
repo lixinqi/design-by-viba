@@ -328,7 +328,7 @@ DesignPhaseSpecOnly =
 PureEnumAllowed =
   Object
   * $statement (str * { 纯字符串枚举只在确实无数据时允许 })
-  * $evidence (str * { Polarity/TagForm 未被骂 })
+  * $evidence (str * { 没有数据的取值没有被纠正过 })
   * $check (str * { 检查变体是否本应有数据 })
   * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
 

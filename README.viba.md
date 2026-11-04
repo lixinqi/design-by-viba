@@ -84,7 +84,7 @@ Check =
   <- $surface_check (surface.Check * { 查边界：交回的泄漏按规则变体归类 })
   <- $edge_check (concept_edge.CheckEdges * { 查概念边：交回的虚边按规则变体归类 })
   <- $hint_check (hint.Check * { 查提示：交回的不合规提示按规则变体归类 })
-  <- $frozen_check (requirement.CheckFrozen * { 查冻结：交回的 Background 按规则变体归类 })
+  <- $frozen_check (requirement.CheckFrozen * { 查冻结：交回的不一致记录按规则归类 })
 
 Ablate =
      readme.AblationReport

@@ -21,18 +21,22 @@ Run = workflow_api.Run
 
 ```bash types
 Step =
-  Object
-  * $kind (StepKind * { 这一步检查什么 })
-  * $result (CheckResult * { 这一步的结果 })
-
-StepKind =
   Oneof
-  | "edit" * { 改文档：文件、需求背景、public 三处一起改 }
-  | "load" * { 重新加载：所有代码块能解析，模块树能加载 }
-  | "closure" * { 闭包：从根 public 出发，孤立列表为空 }
-  | "cycle" * { 环：文档级依赖图无环 }
-  | "stale_name" * { 旧名字：全仓搜索为 0 }
-  | "commit" * { 提交：写清这一步用哪条规则判的 }
+  | $edit (CheckResult * { 改文档这一步：文件、需求背景、public 三处一起改 })
+  | $load (CheckResult * { 重新加载这一步：所有代码块能解析，模块树能加载 })
+  | $closure (CheckResult * { 闭包这一步：从根 public 出发，孤立列表为空 })
+  | $cycle (CheckResult * { 环这一步：文档级依赖图无环 })
+  | $stale_name (CheckResult * { 旧名字这一步：全仓搜索为 0 })
+  | $commit (CheckResult * { 提交这一步：写清用哪条规则判的 })
+
+CheckName =
+  Oneof
+  | "edit" * { 改文档 }
+  | "load" * { 重新加载 }
+  | "closure" * { 闭包 }
+  | "cycle" * { 环 }
+  | "stale_name" * { 旧名字 }
+  | "commit" * { 提交 }
 
 CheckResult =
   Object
@@ -52,7 +56,7 @@ import workflow.types as workflow
 
 Run =
      list[workflow.Step]
-  <- $steps (list[workflow.StepKind] * { 这次要跑的检查，按顺序 })
+  <- $steps (list[workflow.CheckName] * { 这次要跑的检查，按顺序 })
   <- {
     执行一遍：逐步执行 edit、load、closure、cycle、stale_name 五项检查，全部通过才提交；返回每一步的结果，失败时停在该步并写清证据
   }

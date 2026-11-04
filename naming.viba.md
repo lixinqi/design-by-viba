@@ -34,7 +34,7 @@ NameMismatch =
 
 Polarity =
   Oneof
-  | "positive" * { 正面名：说这个东西是什么，例如 Surface 这类正面名 }
+  | "positive" * { 正面名：说这个东西是什么，例如“某份文档的 public” }
   | "negative" * { 负面名：说哪里出了问题，例如 Violation 与 missing_requirement }
 
 TagForm =
@@ -53,7 +53,7 @@ PolarityClash =
   * $type_name (str * { 类型名，例如 Violation })
   * $type_polarity (Polarity * { 类型名的正负 })
   * $tags (list[str] * { 变体标签，例如 missing_requirement、public_leak })
-  * $payload_types (list[str] * { 各变体带的载荷类型名，例如 MissingRequirement、PublicLeak })
+  * $payload_types (list[str] * { 各变体带的载荷类型名，例如“缺了什么”“哪里泄漏” })
   * $tag_polarity (Polarity * { 标签的正负；与 $type_polarity 不同就是冲突 })
 ```
 
