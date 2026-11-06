@@ -4,7 +4,7 @@
 
 ## 依赖
 
-本仓库依赖 [viba](https://github.com/lixinqi/viba)：`.viba.md` 怎么读、模块与 import 怎么解析，都以那个仓库为准。本仓库只放设计规范与示例，不含解析器；示例仓库用 viba 的 markdown 读取器与 parser 校验。
+本仓库依赖 [viba](https://github.com/lixinqi/viba)，主要是它的写法文档 [viba/wiki](https://github.com/lixinqi/viba/tree/main/viba/wiki)：`.viba.md` 怎么读、模块与 import 怎么解析、示例怎么加载，都以那里为准。本仓库只放设计规范与示例，不含解析器；示例仓库用 viba 的 markdown 读取器与 parser 校验。
 
 ## 入口
 
