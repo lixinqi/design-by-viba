@@ -4,7 +4,7 @@
 
 ## 依赖
 
-本仓库依赖 [viba](https://github.com/lixinqi/viba)，主要是它的写法文档 [viba/wiki](https://github.com/lixinqi/viba/tree/main/viba/wiki)：`.viba.md` 怎么读、模块与 import 怎么解析、示例怎么加载，都以那里为准。本仓库只放设计规范与示例，不含解析器；示例仓库用 viba 的 markdown 读取器与 parser 校验。
+本仓库依赖 [viba](https://github.com/lixinqi/viba)，主要是它的写法文档 [viba/wiki](https://github.com/lixinqi/viba/tree/main/viba/wiki)：`.viba.md` 怎么读、模块与 import 怎么解析、示例怎么加载，都以那里为准。本仓库只放设计规范与示例，不含解析器；示例仓库用 viba 的 markdown 读取器与 parser 校验，`tests/` 里的用例用 viba 的 interpreter 跑：`VIBA_ROOT=../viba python3 tests/test_must_judged_by_agent.py`。
 
 ## 入口
 
@@ -19,7 +19,7 @@
 
 | 文档 | 主题 |
 |---|---|
-| [`rules.viba.md`](rules.viba.md) | 规则集：54 条规则，每条一个类型与一对示例仓库 |
+| [`rules.viba.md`](rules.viba.md) | 规则集：55 条规则，每条一个类型与一对示例仓库 |
 | [`requirement.viba.md`](requirement.viba.md) | 需求先行；根文档需求背景的冻结文本 |
 | [`surface.viba.md`](surface.viba.md) | 外部只依赖 public |
 | [`concept_edge.viba.md`](concept_edge.viba.md) | 概念用类型连边，说明里提到不算依赖 |
@@ -29,8 +29,10 @@
 | [`hint.viba.md`](hint.viba.md) | 提示写服务关系；依赖参数放在提示之后 |
 | [`design_phase.viba.md`](design_phase.viba.md) | 设计阶段只留规范 |
 | [`workflow.viba.md`](workflow.viba.md) | 每一步都要能被验证 |
+| [`rule_tools.viba.md`](rule_tools.viba.md) | 规则工具：判定一条规则由谁判 |
+| [`must_judged_by_agent_impl.viba.md`](must_judged_by_agent_impl.viba.md) | 判定表：程序能判的规则与交给 agent 的规则 |
 
-每篇文档五段：需求背景、public、types、基本操作、apis。跨文档引用只经过目标文档的 public。
+表里前 10 份与根文档 [`README.viba.md`](README.viba.md) 是设计文档，共 11 份：每篇五段——需求背景、public、types、基本操作、apis；跨文档引用只经过目标文档的 public。表里最后 2 份是模块文档，没有五段，也没有 public：章就是模块的文件。
 
 ## 规则
 
@@ -41,16 +43,9 @@ Rule =
   Oneof
   | $readme_background_frozen (ReadmeBackgroundFrozen * { ... })
   | ...
-
-ReadmeBackgroundFrozen =
-  Object
-  * $statement (str * { 规则原文 })
-  * $evidence (str * { 依据 })
-  * $check (str * { 检查方法 })
-  * $verdict (str * { 不满足 $check 时，报这一条并写出位置与证据 })
 ```
 
-规则被违反时交回 `Finding`（规则、位置、证据），不为每种违规另造一个类型。
+每个变体的载荷是这条规则自己的叶子类型，里面写规则原文、依据、检查方法与判定方式。规则被违反时交回 `Finding`（规则、位置、证据），不为每种违规另造一个类型。
 
 ## 示例
 
@@ -60,12 +55,10 @@ ReadmeBackgroundFrozen =
 
 ## 检查什么
 
-可机检的规则覆盖：固定结构与需求背景、外部只依赖 public、闭包无孤立、依赖图无环、命名与正负、提示与依赖参数的写法、和类型必须带载荷、生成物与手写件互斥、以及根文档需求背景与冻结文本逐字一致。
+程序能判的规则覆盖：五段与唯一根、根需求背景逐字比对、外部只依赖 public、public 只导出本文档的名字、闭包的孤立物、虚边、设计阶段的可达性、生成物跟源头走、和类型带载荷、禁止记录+kind、依赖参数与提示的写法、违规归因、变更叙述与时间词扫描、每条规则带示例。其余规则要读出语义或过程（例如“点名一处要改完整类”“被骂后先复盘”），交给 agent 判；一条规则归哪一边，见规则工具与判定表。
 
 检查结果必须能定位：`Finding` 的 `$where` 给出文件、行号与名字，`$evidence` 给出查到的内容。无法判定的情况不得当作通过。
 
-过程类规则（例如“点名一处要改完整类”“被骂后先复盘”）只能人工执行，规则集保留它们，但不宣称有机器检查。
-
 ## 当前规模
 
-文档 11 份，定义 116 个；规则 54 条，每条一对示例仓库，共 108 个。从根 public 出发的闭包没有孤立定义，文档级依赖图无环。
+设计文档 11 份（117 个定义），模块文档 2 份；规则 55 条，每条一对示例仓库，共 110 个；程序能判的 19 条，其余 36 条交给 agent。从根 public 出发的闭包没有孤立定义，文档级依赖图无环。
