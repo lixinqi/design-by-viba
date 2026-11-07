@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import index.types as index
 import index.apis as index_api
 
@@ -17,7 +17,7 @@ Build = index_api.Build
 
 ## types.viba
 
-```bash types
+```viba types
 import parse.public as parse
 
 
@@ -36,7 +36,7 @@ Site =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import index.types as index
 import parse.public as parse
 

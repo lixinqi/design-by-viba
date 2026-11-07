@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import parse.types as parse
 import parse.apis as parse_api
 
@@ -17,7 +17,7 @@ Parse = parse_api.Parse
 
 ## types.viba
 
-```bash types
+```viba types
 Page =
   Object
   * $source (str * { 这个页面来自的 Markdown 文件路径 })
@@ -33,7 +33,7 @@ Page =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import parse.types as parse
 
 

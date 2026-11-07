@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import pipeline.types as pipeline
 import pipeline.apis as pipeline_api
 
@@ -17,7 +17,7 @@ Run = pipeline_api.Run
 
 ## types.viba
 
-```bash types
+```viba types
 BuildFailure =
   Object
   * $log (str * { 构建的完整日志 })
@@ -43,7 +43,7 @@ Success =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import pipeline.types as pipeline
 
 Run =

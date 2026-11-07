@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import readme.types as readme
 import readme.apis as readme_api
 
@@ -17,7 +17,7 @@ Check = readme_api.Check
 
 ## types.viba
 
-```bash types
+```viba types
 Finding =
   Object
   * $principle (str * { 被违反的原则，取规则文件里的原则 })
@@ -37,7 +37,7 @@ Report =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import readme.types as readme
 import parse.public as parse
 

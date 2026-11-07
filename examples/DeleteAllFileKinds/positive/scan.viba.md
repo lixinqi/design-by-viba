@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import scan.types as scan
 import scan.apis as scan_api
 
@@ -17,7 +17,7 @@ Scan = scan_api.Scan
 
 ## types.viba
 
-```bash types
+```viba types
 File =
   Object
   * $path (str * { 站点目录里的相对路径 })
@@ -32,7 +32,7 @@ File =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import scan.types as scan
 
 

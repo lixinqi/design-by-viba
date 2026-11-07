@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import readme.types as readme
 import readme.apis as readme_api
 
@@ -17,7 +17,7 @@ Search = readme_api.Search
 
 ## types.viba
 
-```bash types
+```viba types
 import tokenize.public as tokenize
 
 
@@ -35,7 +35,7 @@ Hits =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import readme.types as readme
 import tokenize.public as tokenize
 

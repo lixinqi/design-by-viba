@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import readme.types as readme
 import readme.apis as readme_api
 
@@ -17,7 +17,7 @@ Check = readme_api.Check
 
 ## types.viba
 
-```bash types
+```viba types
 import rule.public as rule
 
 
@@ -34,7 +34,7 @@ RuleSet =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import readme.types as readme
 import rule.public as rule
 

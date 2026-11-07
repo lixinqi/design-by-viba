@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import read.types as read
 import read.apis as read_api
 
@@ -17,7 +17,7 @@ Read = read_api.Read
 
 ## types.viba
 
-```bash types
+```viba types
 Draft =
   Object
   * $path (str * { 文件在目录里的路径 })
@@ -32,7 +32,7 @@ Draft =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import read.types as read
 
 

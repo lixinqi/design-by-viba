@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import check.types as check
 import check.apis as check_api
 
@@ -21,7 +21,7 @@ Check = check_api.Check
 
 ## types.viba
 
-```bash types
+```viba types
 TooLarge =
   Object
   * $limit (int * { 允许的最大字节数 })
@@ -48,7 +48,7 @@ UploadFailure =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import check.types as check
 
 

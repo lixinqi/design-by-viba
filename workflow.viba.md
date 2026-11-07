@@ -8,7 +8,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import workflow.types as workflow
 import workflow.apis as workflow_api
 
@@ -19,7 +19,7 @@ Run = workflow_api.Run
 
 一次改动由六步组成，前五步都有输出，最后一步才提交。任何一步不通过，都回到改动本身，而不是在提交信息里解释。
 
-```bash types
+```viba types
 Step =
   Oneof
   | $edit (CheckResult * { 改文档这一步：文件、需求背景、public 三处一起改 })
@@ -50,7 +50,7 @@ CheckResult =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import closure.public as closure
 import workflow.types as workflow
 

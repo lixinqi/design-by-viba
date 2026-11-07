@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import readme.types as readme
 import readme.apis as readme_api
 
@@ -17,7 +17,7 @@ Deliver = readme_api.Deliver
 
 ## types.viba
 
-```bash types
+```viba types
 import norms.public as norms
 import review.public as review
 
@@ -36,7 +36,7 @@ Delivery =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import readme.types as readme
 import norms.public as norms
 import review.public as review

@@ -2,11 +2,11 @@
 
 ## 需求背景
 
-输入是一条订单记录的文本 `$record`；操作是把记录解析成一条事件：下单或取消。本示例是 SumWithPayload 反例的依赖方：`Event` 的变体只有标签、没有载荷，订单号不在事件里。根 README 从这里取 `Event` 与 `Parse`。
+输入是一条订单记录的文本 `$record`；操作是把记录解析成一条事件：下单或取消。本示例是 VariantCarriesType 反例的依赖方：`Event` 的变体只有标签、后面没有类型，订单号不在事件里。根 README 从这里取 `Event` 与 `Parse`。
 
 ## public.viba
 
-```bash public
+```viba public
 import parse.types as parse
 import parse.apis as parse_api
 
@@ -17,7 +17,7 @@ Parse = parse_api.Parse
 
 ## types.viba
 
-```bash types
+```viba types
 Event =
   Oneof
   | $placed ()
@@ -32,7 +32,7 @@ Event =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import parse.types as parse
 
 

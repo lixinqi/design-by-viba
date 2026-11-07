@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import orders.types as orders
 import orders.apis as orders_api
 
@@ -17,7 +17,7 @@ Load = orders_api.Load
 
 ## types.viba
 
-```bash types
+```viba types
 Order =
   Object
   * $region (str * { 订单行上写的区域名 })
@@ -32,7 +32,7 @@ Order =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import orders.types as orders
 
 

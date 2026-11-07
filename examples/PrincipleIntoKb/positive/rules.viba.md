@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import rules.types as rules
 import rules.apis as rules_api
 
@@ -17,7 +17,7 @@ Check = rules_api.Check
 
 ## types.viba
 
-```bash types
+```viba types
 Rule =
   Oneof
   | $hints_folded (HintsFolded * { 函数提示块一律折行 })
@@ -46,7 +46,7 @@ Finding =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import rules.types as rules
 
 

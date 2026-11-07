@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import rules.types as rules
 import rules.apis as rules_api
 
@@ -19,7 +19,7 @@ Judge = rules_api.Judge
 
 ## types.viba
 
-```bash types
+```viba types
 Criterion =
   Object
   * $name (str * { 判据名：作废、取代、引用 })
@@ -41,7 +41,7 @@ Verdict =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import rules.types as rules
 import norms.public as norms
 

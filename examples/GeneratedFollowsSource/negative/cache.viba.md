@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import cache.types as cache
 import cache.apis as cache_api
 
@@ -17,7 +17,7 @@ Apply = cache_api.Apply
 
 ## types.viba
 
-```bash types
+```viba types
 Settings =
   Object
   * $ttl_seconds (int * { 每条缓存条目的有效期，单位秒 })
@@ -33,7 +33,7 @@ Settings =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import cache.types as cache
 
 

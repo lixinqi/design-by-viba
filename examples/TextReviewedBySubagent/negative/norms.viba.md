@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import norms.types as norms
 import norms.apis as norms_api
 
@@ -17,7 +17,7 @@ Parse = norms_api.Parse
 
 ## types.viba
 
-```bash types
+```viba types
 Norm =
   Object
   * $name (str * { 规范名：文件名去掉 .md })
@@ -32,7 +32,7 @@ Norm =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import norms.types as norms
 
 

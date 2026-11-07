@@ -2,11 +2,11 @@
 
 ## 需求背景
 
-输入是一个任务的名字 `$name`，以及任务的当前状态；操作有两类：登记一个任务，按当前状态推进一个任务。本示例是 NoRecordPlusKind 正例的任务模块：`Task` 的状态写成带载荷的和类型，每一种情况只带它自己的数据。根 README 从这里取 `Task`、`Register` 与 `Advance`。
+输入是一个任务的名字 `$name`，以及任务的当前状态；操作有两类：登记一个任务，按当前状态推进一个任务。本示例是 NoRecordPlusKind 正例的任务模块：`Task` 的状态写成和类型，每个变体带着自己的类型，每一种情况只带它自己的数据。根 README 从这里取 `Task`、`Register` 与 `Advance`。
 
 ## public.viba
 
-```bash public
+```viba public
 import task.types as task
 import task.apis as task_api
 
@@ -19,7 +19,7 @@ Advance = task_api.Advance
 
 ## types.viba
 
-```bash types
+```viba types
 Task =
   Object
   * $name (str * { 任务的名字 })
@@ -41,7 +41,7 @@ TaskState =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import task.types as task
 
 Register =

@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import readme.types as readme
 import readme.apis as readme_api
 
@@ -17,7 +17,7 @@ Report = readme_api.Report
 
 ## types.viba
 
-```bash types
+```viba types
 RegionRow =
   Object
   * $region (str * { 区域名 })
@@ -38,7 +38,7 @@ Table =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import orders.public as orders
 
 

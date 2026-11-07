@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import checksum.types as checksum
 import checksum.apis as checksum_api
 
@@ -17,7 +17,7 @@ Checksum = checksum_api.Checksum
 
 ## types.viba
 
-```bash types
+```viba types
 Digest =
   Object
   * $value (str * { SHA-256 的十六进制串 })
@@ -32,7 +32,7 @@ Digest =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import checksum.types as checksum
 
 Checksum =

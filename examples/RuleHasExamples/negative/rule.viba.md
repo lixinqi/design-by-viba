@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import rule.types as rule
 import rule.apis as rule_api
 
@@ -21,7 +21,7 @@ CheckRule = rule_api.CheckRule
 
 ## types.viba
 
-```bash types
+```viba types
 Rule =
   Oneof
   | $rule_has_examples (RuleHasExamples * { 每条规则必须有正例与反例 })
@@ -46,7 +46,7 @@ Finding =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import rule.types as rule_types
 
 

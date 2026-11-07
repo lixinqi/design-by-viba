@@ -8,7 +8,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import hint.types as hint
 import hint.apis as hint_api
 
@@ -19,7 +19,7 @@ Check = hint_api.Check
 
 提示有两种形态：折行的块，和更短的内联说明；依赖参数只有一个形态——放在提示块之后、带 tag、类型直接写被依赖的 api。
 
-```bash types
+```viba types
 Hint =
   Oneof
   | $folded (str * { 函数的提示块：`<- {` 单独一行，文字缩进一层，`}` 回到 `<-` 的缩进；文字写这一步做什么 })
@@ -37,7 +37,7 @@ MalformedHint =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import hint.types as hint
 
 Check =

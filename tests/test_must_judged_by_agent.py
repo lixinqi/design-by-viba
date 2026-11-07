@@ -3,7 +3,7 @@
 The rule set's trait answers true when an agent must judge a rule, false when
 `must_judged_by_agent_impl` lists it as a program's. The test reads the table out
 of `must_judged_by_agent_impl.viba.md`, then asks the trait about every rule in
-`rules.viba.md` three ways: the leaf type, the variant payload as `Rule` spells
+`rules.viba.md` three ways: the leaf type, the variant type as `Rule` spells
 it (the leaf plus its hint — one type, now that a hint block is the product's
 unit), and the implementation directly. It also asks a few types outside the
 rule set: none is in the table, so every one defaults to true.
@@ -83,7 +83,7 @@ def run() -> int:
         want = name not in table
         ask(f"tools.must_judged_by_agent[rules.{name}]", f"leaf {name}", want)
         ask(f"tools.must_judged_by_agent[rules.{name} * {{ {hint} }}]",
-            f"payload {name}", want)
+            f"variant {name}", want)
         ask(f"table[rules.{name}].value", f"impl {name}", want)
 
     for source in ("int", "str", "list[int]", "rules.Rule", "rules.Finding",

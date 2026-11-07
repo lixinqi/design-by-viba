@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import readme.types as readme
 import readme.apis as readme_api
 
@@ -17,7 +17,7 @@ Prune = readme_api.Prune
 
 ## types.viba
 
-```bash types
+```viba types
 import scan.public as scan
 
 
@@ -35,7 +35,7 @@ PruneReport =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import readme.types as readme
 import scan.public as scan
 

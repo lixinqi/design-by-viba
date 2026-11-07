@@ -8,7 +8,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import concept_edge.types as concept_edge
 import concept_edge.apis as concept_edge_api
 
@@ -19,7 +19,7 @@ CheckEdges = concept_edge_api.CheckEdges
 
 两条定义之间的关系只有两种情况：真边（闭包认）与只在说明里提到（闭包不认）。把两者分开记，才能一眼看出哪些边是虚的。
 
-```bash types
+```viba types
 Edge =
   Object
   * $from (str * { 引用方，写成模块.名字 })
@@ -37,7 +37,7 @@ Reference =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import concept_edge.types as concept_edge
 
 CheckEdges =

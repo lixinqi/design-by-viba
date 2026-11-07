@@ -8,7 +8,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import design_phase.types as design_phase
 import design_phase.apis as design_phase_api
 
@@ -19,7 +19,7 @@ Judge = design_phase_api.Judge
 
 仓库里的文件分四类：规范、生成物、工具、样例数据。只有规范可能被 public 依赖；其余三类一旦没有边，就该删。
 
-```bash types
+```viba types
 Artifact =
   Oneof
   | $spec (str * { 文档路径：类型与操作的出处，可能被 public 依赖 })
@@ -40,7 +40,7 @@ Verdict =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import design_phase.types as design_phase
 
 Judge =

@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import task.types as task
 import task.apis as task_api
 
@@ -19,7 +19,7 @@ Advance = task_api.Advance
 
 ## types.viba
 
-```bash types
+```viba types
 Task =
   Object
   * $name (str * { 任务的名字 })
@@ -42,7 +42,7 @@ Kind =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import task.types as task
 
 Register =

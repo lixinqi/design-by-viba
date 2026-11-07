@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import readme.types as readme
 import readme.apis as readme_api
 
@@ -17,7 +17,7 @@ Plan = readme_api.Plan
 
 ## types.viba
 
-```bash types
+```viba types
 DeletePlan =
   Object
   * $unreachable (list[str] * { 闭包算出来够不到的名字：照这份名单删 })
@@ -32,7 +32,7 @@ DeletePlan =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import readme.types as readme
 import graph.public as graph
 

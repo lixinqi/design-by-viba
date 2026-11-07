@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import readme.types as readme
 import readme.apis as readme_api
 
@@ -21,7 +21,7 @@ Inspect = readme_api.Inspect
 
 ## types.viba
 
-```bash types
+```viba types
 import checksum.public as checksum
 
 
@@ -61,7 +61,7 @@ Inspection =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import readme.types as readme
 import checksum.public as checksum
 

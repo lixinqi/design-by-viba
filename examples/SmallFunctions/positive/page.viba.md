@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import page.types as page
 import page.apis as page_api
 
@@ -21,7 +21,7 @@ Render = page_api.Render
 
 ## types.viba
 
-```bash types
+```viba types
 Page =
   Object
   * $title (str * { 页面的一级标题；文件没有一级标题时取文件名 })
@@ -36,7 +36,7 @@ Page =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import page.types as page
 import read.public as read
 

@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import sum.types as sum
 import sum.apis as sum_api
 
@@ -19,7 +19,7 @@ Sum = sum_api.Sum
 
 ## types.viba
 
-```bash types
+```viba types
 Row =
   Object
   * $group (str * { 分组名 })
@@ -39,7 +39,7 @@ GroupTotal =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import sum.types as sum
 
 

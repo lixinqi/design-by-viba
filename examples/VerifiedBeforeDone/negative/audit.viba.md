@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import audit.types as audit
 import audit.apis as audit_api
 
@@ -17,7 +17,7 @@ Run = audit_api.Run
 
 ## types.viba
 
-```bash types
+```viba types
 Report =
   Object
   * $command (str * { 跑过的检查命令，逐字记下 })
@@ -34,7 +34,7 @@ Report =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import audit.types as audit
 
 

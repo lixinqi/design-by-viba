@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import render.types as render
 import render.apis as render_api
 
@@ -17,7 +17,7 @@ Render = render_api.Render
 
 ## types.viba
 
-```bash types
+```viba types
 Message =
   Object
   * $subject (str * { 消息的主题，取自通知的标题 })
@@ -32,7 +32,7 @@ Message =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import render.types as render
 
 

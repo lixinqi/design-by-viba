@@ -12,7 +12,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import readme.types as readme
 import readme.apis as readme_api
 
@@ -30,7 +30,7 @@ Ablate = readme_api.Ablate
 
 两类操作共用一套词汇：一条违规就是一条规则的变体，变体自带那条规则查出来的证据；一次检查是违规的清单；一次消融记下删掉了哪些定义、需求还解不解决得了、缺的是哪一个。
 
-```bash types
+```viba types
 import rules.public as rules
 
 
@@ -55,7 +55,7 @@ AblationReport =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import readme.types as readme
 import rules.public as rules
 import closure.public as closure

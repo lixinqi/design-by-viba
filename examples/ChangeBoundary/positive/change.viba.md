@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import change.types as change
 import change.apis as change_api
 
@@ -19,7 +19,7 @@ Check = change_api.Check
 
 ## types.viba
 
-```bash types
+```viba types
 Change =
   Object
   * $scope (list[str] * { 任务单声明的范围：允许改动的文件路径，每行一个 })
@@ -41,7 +41,7 @@ Boundary =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import change.types as change
 
 

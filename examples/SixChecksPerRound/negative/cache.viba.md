@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import cache.types as cache
 import cache.apis as cache_api
 
@@ -17,7 +17,7 @@ Load = cache_api.Load
 
 ## types.viba
 
-```bash types
+```viba types
 Loaded =
   Object
   * $loaded (int * { 本轮装进缓存的文档数 })
@@ -33,7 +33,7 @@ Loaded =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import cache.types as cache
 
 

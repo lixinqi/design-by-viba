@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import backup.types as backup
 import backup.apis as backup_api
 
@@ -19,7 +19,7 @@ Restore = backup_api.Restore
 
 ## types.viba
 
-```bash types
+```viba types
 Snapshot =
   Object
   * $name (str * { 快照的名字，按归档目录里的建立次序编号 })
@@ -36,7 +36,7 @@ Snapshot =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import backup.types as backup
 
 

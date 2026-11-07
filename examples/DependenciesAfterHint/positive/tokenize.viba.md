@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import tokenize.types as tokenize
 import tokenize.apis as tokenize_api
 
@@ -17,7 +17,7 @@ Tokenize = tokenize_api.Tokenize
 
 ## types.viba
 
-```bash types
+```viba types
 Token =
   Object
   * $text (str * { 词项的文本 })
@@ -32,7 +32,7 @@ Token =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import tokenize.types as tokenize
 
 

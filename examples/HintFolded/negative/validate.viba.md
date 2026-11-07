@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import validate.types as validate
 import validate.apis as validate_api
 
@@ -17,7 +17,7 @@ Validate = validate_api.Validate
 
 ## types.viba
 
-```bash types
+```viba types
 Violation =
   Object
   * $key (str * { 配置项的名字 })
@@ -32,7 +32,7 @@ Violation =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import validate.types as validate
 
 

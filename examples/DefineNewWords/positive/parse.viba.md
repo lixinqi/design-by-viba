@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import parse.types as parse
 import parse.apis as parse_api
 
@@ -17,7 +17,7 @@ Parse = parse_api.Parse
 
 ## types.viba
 
-```bash types
+```viba types
 Document =
   Object
   * $title (str * { 文档的一级标题 })
@@ -32,7 +32,7 @@ Document =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import parse.types as parse
 
 

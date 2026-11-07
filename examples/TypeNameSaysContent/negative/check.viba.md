@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import check.types as check
 import check.apis as check_api
 
@@ -21,7 +21,7 @@ Check = check_api.Check
 
 ## types.viba
 
-```bash types
+```viba types
 Rule =
   Object
   * $name (str * { 规则名，例如 TypeNameSaysContent })
@@ -48,7 +48,7 @@ Lesson =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import check.types as check
 
 Check =

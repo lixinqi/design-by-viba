@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import join.types as join
 import join.apis as join_api
 
@@ -17,7 +17,7 @@ Join = join_api.Join
 
 ## types.viba
 
-```bash types
+```viba types
 Row =
   Object
   * $text (str * { 报表里一行文本，不含换行 })
@@ -31,7 +31,7 @@ Row =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import join.types as join
 
 

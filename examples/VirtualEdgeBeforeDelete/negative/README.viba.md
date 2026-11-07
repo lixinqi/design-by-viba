@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import readme.types as readme
 import readme.apis as readme_api
 
@@ -17,7 +17,7 @@ Rollup = readme_api.Rollup
 
 ## types.viba
 
-```bash types
+```viba types
 Report =
   Object
   * $metric (str * { 指标名 })
@@ -35,7 +35,7 @@ Report =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import readme.types as readme
 import series.public as series
 

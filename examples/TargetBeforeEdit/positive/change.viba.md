@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import change.types as change
 import change.apis as change_api
 
@@ -23,7 +23,7 @@ Apply = change_api.Apply
 
 ## types.viba
 
-```bash types
+```viba types
 Edit =
   Object
   * $old (str * { 改动前的那段文字 })
@@ -53,7 +53,7 @@ AppliedChange =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import change.types as change
 
 

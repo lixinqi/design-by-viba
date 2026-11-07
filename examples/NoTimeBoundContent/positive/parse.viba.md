@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import parse.types as parse
 import parse.apis as parse_api
 
@@ -17,7 +17,7 @@ Parse = parse_api.Parse
 
 ## types.viba
 
-```bash types
+```viba types
 Job =
   Object
   * $name (str * { 任务名，在一批任务里唯一 })
@@ -34,7 +34,7 @@ Job =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import parse.types as parse
 
 

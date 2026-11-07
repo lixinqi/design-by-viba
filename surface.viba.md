@@ -8,7 +8,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import surface.types as surface
 import surface.apis as surface_api
 
@@ -19,7 +19,7 @@ Check = surface_api.Check
 
 一个 public 槽位只做一件事：把内部模块里的一个名字，按外部要用的名字重新绑定一次。`$home` 记它定义在哪，外部不该知道也不需要知道。
 
-```bash types
+```viba types
 Surface =
   Object
   * $entries (list[SurfaceEntry] * { 这个 public 对外发布的全部名字 })
@@ -48,7 +48,7 @@ PublicLeak =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import surface.types as surface
 
 Check =

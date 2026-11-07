@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import readme.types as readme
 import readme.apis as readme_api
 
@@ -19,7 +19,7 @@ Rollup = readme_api.Rollup
 
 ## types.viba
 
-```bash types
+```viba types
 Sample =
   Object
   * $at (int * { 时间窗的起点，Unix 秒 })
@@ -39,7 +39,7 @@ Metric =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import readme.types as readme
 import parse.public as parse
 

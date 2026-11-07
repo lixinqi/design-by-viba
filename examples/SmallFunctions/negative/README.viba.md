@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import readme.types as readme
 import readme.apis as readme_api
 
@@ -17,7 +17,7 @@ Build = readme_api.Build
 
 ## types.viba
 
-```bash types
+```viba types
 Site =
   Object
   * $html (str * { 整站拼好的 HTML，可以直接发布 })
@@ -33,7 +33,7 @@ Site =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import readme.types as readme
 import read.public as read
 

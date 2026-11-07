@@ -8,7 +8,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import closure.types as closure
 import closure.apis as closure_api
 
@@ -21,7 +21,7 @@ Prune = closure_api.Prune
 
 闭包要留下证据：从哪个入口出发、走到了哪些名字、哪些名字没走到。孤立物的种类决定处理方式——定义删掉，文档删掉，文件删掉，代码与生成物也删掉。
 
-```bash types
+```viba types
 Closure =
   Object
   * $root (str * { 入口：根文档的 public，例如 README.public })
@@ -44,7 +44,7 @@ Unreachable =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import closure.types as closure
 
 Reach =

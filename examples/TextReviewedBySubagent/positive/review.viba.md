@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import review.types as review
 import review.apis as review_api
 
@@ -17,7 +17,7 @@ Review = review_api.Review
 
 ## types.viba
 
-```bash types
+```viba types
 Finding =
   Object
   * $aspect (str * { 检查方面：口语、术语或拗口 })
@@ -41,7 +41,7 @@ ReviewRecord =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import review.types as review
 
 

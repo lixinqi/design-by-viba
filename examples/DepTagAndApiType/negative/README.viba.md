@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import readme.types as readme
 import readme.apis as readme_api
 
@@ -19,7 +19,7 @@ Notify = readme_api.Notify
 
 ## types.viba
 
-```bash types
+```viba types
 import render.public as render
 
 
@@ -43,7 +43,7 @@ Receipt =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import readme.types as readme
 
 

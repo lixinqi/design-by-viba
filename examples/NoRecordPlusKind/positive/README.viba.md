@@ -2,11 +2,11 @@
 
 ## 需求背景
 
-输入是一批任务的名字 `$names`；操作有两类：登记单个任务，把整批任务登记后推进一次。本示例是 NoRecordPlusKind 的正例：`Task` 的状态写成带载荷的和类型，每一种情况只带它自己的数据。
+输入是一批任务的名字 `$names`；操作有两类：登记单个任务，把整批任务登记后推进一次。本示例是 NoRecordPlusKind 的正例：`Task` 的状态写成和类型，每个变体带着自己的类型，每一种情况只带它自己的数据。
 
 ## public.viba
 
-```bash public
+```viba public
 import readme.types as readme
 import readme.apis as readme_api
 
@@ -17,7 +17,7 @@ Schedule = readme_api.Schedule
 
 ## types.viba
 
-```bash types
+```viba types
 import task.public as task
 
 Queue =
@@ -33,7 +33,7 @@ Queue =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import readme.types as readme
 import task.public as task
 

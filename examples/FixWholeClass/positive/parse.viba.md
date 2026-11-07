@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import parse.types as parse
 import parse.apis as parse_api
 
@@ -17,7 +17,7 @@ Parse = parse_api.Parse
 
 ## types.viba
 
-```bash types
+```viba types
 Template =
   Object
   * $name (str * { 模板的名字，取文件名去掉扩展名 })
@@ -33,7 +33,7 @@ Template =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import parse.types as parse
 
 

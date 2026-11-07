@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import parse.types as parse
 import parse.apis as parse_api
 
@@ -17,7 +17,7 @@ Parse = parse_api.Parse
 
 ## types.viba
 
-```bash types
+```viba types
 Record =
   Object
   * $time (str * { 日志行的时刻，按原写法保留 })
@@ -33,7 +33,7 @@ Record =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import parse.types as parse
 
 

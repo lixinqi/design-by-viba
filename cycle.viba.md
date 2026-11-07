@@ -8,7 +8,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import cycle.types as cycle
 import cycle.apis as cycle_api
 
@@ -19,7 +19,7 @@ Diagnose = cycle_api.Diagnose
 
 一个环先分种类，再决定拆法。递归定义靠泛型，函数造成的环靠重新组织模块；分不清种类时，先问「这个函数填的是谁的数据」。
 
-```bash types
+```viba types
 CyclicDependency =
   Oneof
   | $recursive_definition (list[str] * { 环上的模块或文档，按顺序；类型引用自己，用泛型用泛型消解自引用 })
@@ -33,7 +33,7 @@ CyclicDependency =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import cycle.types as cycle
 
 Diagnose =

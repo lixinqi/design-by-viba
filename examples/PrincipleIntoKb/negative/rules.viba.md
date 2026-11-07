@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import rules.types as rules
 import rules.apis as rules_api
 
@@ -17,7 +17,7 @@ Check = rules_api.Check
 
 ## types.viba
 
-```bash types
+```viba types
 Finding =
   Object
   * $rule (str * { 违反的规则原文 })
@@ -33,7 +33,7 @@ Finding =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import rules.types as rules
 
 

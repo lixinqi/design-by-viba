@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import rules.types as rules
 import rules.apis as rules_api
 
@@ -17,7 +17,7 @@ Record = rules_api.Record
 
 ## types.viba
 
-```bash types
+```viba types
 Rule =
   Object
   * $statement (str * { 提示要写清楚 })
@@ -31,7 +31,7 @@ Rule =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import rules.types as rules
 
 

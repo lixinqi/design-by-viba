@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import check.types as check
 import check.apis as check_api
 
@@ -17,7 +17,7 @@ Check = check_api.Check
 
 ## types.viba
 
-```bash types
+```viba types
 Report =
   Object
   * $broken (list[str] * { 无法打开的链接，按出现顺序 })
@@ -31,7 +31,7 @@ Report =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import check.types as check
 
 

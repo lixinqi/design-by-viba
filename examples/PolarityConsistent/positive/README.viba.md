@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import readme.types as readme
 import readme.apis as readme_api
 
@@ -17,7 +17,7 @@ Prepare = readme_api.Prepare
 
 ## types.viba
 
-```bash types
+```viba types
 import pipeline.public as pipeline
 
 Release =
@@ -34,7 +34,7 @@ Release =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import readme.types as readme
 import pipeline.public as pipeline
 

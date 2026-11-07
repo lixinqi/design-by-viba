@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import parse.types as parse
 import parse.apis as parse_api
 
@@ -17,7 +17,7 @@ Parse = parse_api.Parse
 
 ## types.viba
 
-```bash types
+```viba types
 Rule =
   Object
   * $principle (str * { 第一个一级标题，违规要归因到这个原则 })
@@ -32,7 +32,7 @@ Rule =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import parse.types as parse
 
 

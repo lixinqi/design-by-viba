@@ -8,7 +8,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import requirement.types as requirement
 import requirement.apis as requirement_api
 
@@ -21,7 +21,7 @@ CheckFrozen = requirement_api.CheckFrozen
 
 一条需求要能被别人复核：说清问题、谁在等、需要哪些名字。三个字段缺一个，public 就没有依据。
 
-```bash types
+```viba types
 Requirement =
   Object
   * $statement (str * { 一句话说清问题：替谁、测什么、为什么现在做 })
@@ -54,7 +54,7 @@ MissingRequirement =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import requirement.types as requirement
 
 Check =

@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import scan.types as scan
 import scan.apis as scan_api
 
@@ -17,7 +17,7 @@ Scan = scan_api.Scan
 
 ## types.viba
 
-```bash types
+```viba types
 Page =
   Object
   * $path (str * { 页面的相对路径，以 .viba.md 结尾 })
@@ -32,7 +32,7 @@ Page =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import scan.types as scan
 
 

@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import series.types as series
 import series.apis as series_api
 
@@ -19,7 +19,7 @@ Read = series_api.Read
 
 ## types.viba
 
-```bash types
+```viba types
 Sample =
   Object
   * $value (float * { 采样值 })
@@ -38,7 +38,7 @@ Series =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import series.types as series
 
 Append =

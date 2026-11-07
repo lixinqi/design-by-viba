@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import classify.types as classify
 import classify.apis as classify_api
 
@@ -17,7 +17,7 @@ Classify = classify_api.Classify
 
 ## types.viba
 
-```bash types
+```viba types
 Severity =
   Oneof
   | $info ()
@@ -33,7 +33,7 @@ Severity =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import classify.types as classify
 
 

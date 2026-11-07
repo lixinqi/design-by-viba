@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import readme.types as readme
 import readme.apis as readme_api
 
@@ -17,7 +17,7 @@ Adopt = readme_api.Adopt
 
 ## types.viba
 
-```bash types
+```viba types
 import rules.public as rules
 
 
@@ -34,7 +34,7 @@ RuleBook =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import readme.types as readme
 import rules.public as rules
 

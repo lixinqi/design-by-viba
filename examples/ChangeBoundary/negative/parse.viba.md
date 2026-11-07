@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import parse.types as parse
 import parse.apis as parse_api
 
@@ -17,7 +17,7 @@ Parse = parse_api.Parse
 
 ## types.viba
 
-```bash types
+```viba types
 Listing =
   Object
   * $paths (list[str] * { 清单文件里每一行的路径，顺序与文件一致 })
@@ -31,7 +31,7 @@ Listing =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import parse.types as parse
 
 

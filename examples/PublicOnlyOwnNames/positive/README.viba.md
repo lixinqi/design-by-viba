@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import readme.types as readme
 import readme.apis as readme_api
 
@@ -17,7 +17,7 @@ Build = readme_api.Build
 
 ## types.viba
 
-```bash types
+```viba types
 Site =
   Object
   * $pages (list[str] * { 发布出来的页面路径，顺序与目录一致 })
@@ -32,7 +32,7 @@ Site =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import readme.types as readme
 import check.public as check
 

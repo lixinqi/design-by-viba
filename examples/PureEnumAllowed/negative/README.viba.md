@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import readme.types as readme
 import readme.apis as readme_api
 
@@ -21,7 +21,7 @@ Dispatch = readme_api.Dispatch
 
 ## types.viba
 
-```bash types
+```viba types
 import classify.public as classify
 
 
@@ -50,7 +50,7 @@ DispatchReport =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import readme.types as readme
 import classify.public as classify
 

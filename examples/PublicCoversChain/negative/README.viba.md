@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import readme.types as readme
 import readme.apis as readme_api
 
@@ -17,7 +17,7 @@ Build = readme_api.Build
 
 ## types.viba
 
-```bash types
+```viba types
 import parse.public as parse
 
 
@@ -35,7 +35,7 @@ Site =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import readme.types as readme
 import parse.public as parse
 

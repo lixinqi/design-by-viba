@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import cache.types as cache
 import cache.apis as cache_api
 
@@ -17,7 +17,7 @@ Cache = cache_api.Cache
 
 ## types.viba
 
-```bash types
+```viba types
 Entry =
   Object
   * $key (str * { 缓存里这条记录用的键 })
@@ -33,7 +33,7 @@ Entry =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import cache.types as cache
 
 

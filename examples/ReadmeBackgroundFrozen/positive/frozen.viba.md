@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import frozen.types as frozen
 import frozen.apis as frozen_api
 
@@ -17,7 +17,7 @@ CheckFrozen = frozen_api.CheckFrozen
 
 ## types.viba
 
-```bash types
+```viba types
 FrozenBackground = str * { 冻结文本，逐字保留：输入是 README 文件的路径 `$readme`；操作是构建首页：读出 README 的大标题、需求背景与各级标题，核对需求背景与冻结文本，排出站点首页。本示例是 ReadmeBackgroundFrozen 的正例：README 需求背景的全文与冻结文本逐字一致。 }
 
 Background =
@@ -34,7 +34,7 @@ Background =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import frozen.types as frozen
 
 

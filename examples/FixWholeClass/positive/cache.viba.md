@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import cache.types as cache
 import cache.apis as cache_api
 
@@ -19,7 +19,7 @@ Store = cache_api.Store
 
 ## types.viba
 
-```bash types
+```viba types
 Entry =
   Object
   * $key (str * { 模板路径与变量表算出的键 })
@@ -34,7 +34,7 @@ Entry =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import cache.types as cache
 
 

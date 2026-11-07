@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import readme.types as readme
 import readme.apis as readme_api
 
@@ -17,7 +17,7 @@ Release = readme_api.Release
 
 ## types.viba
 
-```bash types
+```viba types
 import audit.public as audit
 
 
@@ -36,7 +36,7 @@ Publication =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import readme.types as readme
 import audit.public as audit
 

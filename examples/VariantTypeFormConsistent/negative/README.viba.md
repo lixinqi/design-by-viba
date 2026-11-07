@@ -2,11 +2,11 @@
 
 ## 需求背景
 
-输入是一条收款请求的文本 `$request` 与这次收款的金额 `$amount`；操作有两类：把请求解析成这次收款用的支付方式，按支付方式扣款并交回一张收款回执。本示例是 PayloadFormConsistent 的反例：`PaymentMethod` 的三个变体的标签 `card`、`wallet`、`bank_transfer` 仍是支付方式的术语，`card` 的载荷类型名却是问题描述 `CardDeclined`，与标签不是同一个术语。
+输入是一条收款请求的文本 `$request` 与这次收款的金额 `$amount`；操作有两类：把请求解析成这次收款用的支付方式，按支付方式扣款并交回一张收款回执。本示例是 VariantTypeFormConsistent 的反例：`PaymentMethod` 的三个变体的标签 `card`、`wallet`、`bank_transfer` 仍是支付方式的术语，`card` 后面的类型名却是问题描述 `CardDeclined`，与标签不是同一个术语。
 
 ## public.viba
 
-```bash public
+```viba public
 import readme.types as readme
 import readme.apis as readme_api
 
@@ -17,7 +17,7 @@ Charge = readme_api.Charge
 
 ## types.viba
 
-```bash types
+```viba types
 import parse.public as parse
 
 
@@ -36,7 +36,7 @@ Receipt =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import readme.types as readme
 import parse.public as parse
 

@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import readme.types as readme
 import readme.apis as readme_api
 
@@ -17,7 +17,7 @@ Export = readme_api.Export
 
 ## types.viba
 
-```bash types
+```viba types
 Report =
   Object
   * $title (str * { 报表的标题，写在正文上方 })
@@ -32,7 +32,7 @@ Report =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import readme.types as readme
 import join.public as join
 

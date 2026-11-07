@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import archive.types as archive
 import archive.apis as archive_api
 
@@ -17,7 +17,7 @@ Pack = archive_api.Pack
 
 ## types.viba
 
-```bash types
+```viba types
 Member =
   Object
   * $path (str * { 写进归档的文件的路径 })
@@ -32,7 +32,7 @@ Member =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import archive.types as archive
 
 

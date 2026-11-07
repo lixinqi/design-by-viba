@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import readme.types as readme
 import readme.apis as readme_api
 
@@ -17,7 +17,7 @@ Revise = readme_api.Revise
 
 ## types.viba
 
-```bash types
+```viba types
 import change.public as change
 
 
@@ -35,7 +35,7 @@ Revision =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import readme.types as readme
 import change.public as change
 

@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import orders.types as orders
 import orders.apis as orders_api
 
@@ -21,7 +21,7 @@ Place = orders_api.Place
 
 ## types.viba
 
-```bash types
+```viba types
 Line =
   Object
   * $sku (str * { 商品编号 })
@@ -48,7 +48,7 @@ Order =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import orders.types as orders
 
 

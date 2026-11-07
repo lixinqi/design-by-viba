@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import readme.types as readme
 import readme.apis as readme_api
 
@@ -19,7 +19,7 @@ List = readme_api.List
 
 ## types.viba
 
-```bash types
+```viba types
 import archive.public as archive
 
 
@@ -37,7 +37,7 @@ Manifest =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 Read =
      str
   <- $path (str * { 文件的路径 })

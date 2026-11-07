@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import readme.types as readme
 import readme.apis as readme_api
 
@@ -17,7 +17,7 @@ RunDrill = readme_api.RunDrill
 
 ## types.viba
 
-```bash types
+```viba types
 import backup.public as backup
 
 
@@ -36,7 +36,7 @@ DrillReport =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import readme.types as readme
 import backup.public as backup
 

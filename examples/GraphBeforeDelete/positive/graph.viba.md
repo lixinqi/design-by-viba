@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import graph.types as graph
 import graph.apis as graph_api
 
@@ -21,7 +21,7 @@ Reach = graph_api.Reach
 
 ## types.viba
 
-```bash types
+```viba types
 Edge =
   Object
   * $from (str * { 引用方，写成模块.名字 })
@@ -48,7 +48,7 @@ Closure =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import graph.types as graph
 
 

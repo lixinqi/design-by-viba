@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import parse.types as parse
 import parse.apis as parse_api
 
@@ -17,7 +17,7 @@ Parse = parse_api.Parse
 
 ## types.viba
 
-```bash types
+```viba types
 Template =
   Object
   * $placeholders (list[str] * { 模板里出现的占位符名，按首次出现的顺序排列 })
@@ -32,7 +32,7 @@ Template =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import parse.types as parse
 
 

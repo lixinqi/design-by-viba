@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import readme.types as readme
 import readme.apis as readme_api
 
@@ -17,7 +17,7 @@ Retire = readme_api.Retire
 
 ## types.viba
 
-```bash types
+```viba types
 import norms.public as norms
 
 
@@ -35,7 +35,7 @@ RetireReport =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import readme.types as readme
 import norms.public as norms
 import rules.public as rules

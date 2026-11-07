@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import readme.types as readme
 import readme.apis as readme_api
 
@@ -17,7 +17,7 @@ Backup = readme_api.Backup
 
 ## types.viba
 
-```bash types
+```viba types
 import archive.public as archive
 
 
@@ -35,7 +35,7 @@ Manifest =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import readme.types as readme
 import archive.public as archive
 

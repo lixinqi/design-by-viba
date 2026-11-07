@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import cache.types as cache
 import cache.apis as cache_api
 
@@ -17,7 +17,7 @@ Restore = cache_api.Restore
 
 ## types.viba
 
-```bash types
+```viba types
 Entry =
   Object
   * $name (str * { 配置项名 })
@@ -32,7 +32,7 @@ Entry =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import cache.types as cache
 
 

@@ -6,7 +6,7 @@
 
 ## public.viba
 
-```bash public
+```viba public
 import parse.types as parse
 import parse.apis as parse_api
 
@@ -17,7 +17,7 @@ Parse = parse_api.Parse
 
 ## types.viba
 
-```bash types
+```viba types
 Query =
   Object
   * $terms (list[str] * { 要匹配的词项，按查询串里的先后排列 })
@@ -32,7 +32,7 @@ Query =
 
 ## apis.viba
 
-```bash apis
+```viba apis
 import parse.types as parse
 
 
